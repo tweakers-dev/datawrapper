@@ -28,13 +28,15 @@ function(initHighlightSeries, visOptions, themes, checkChartHeight, loadVisDfd,
         __updateSizeTimer,
         chart = dw.backend.currentChart,
         visMetas = {},
-        iframe = $('#iframe-vis');
+        iframe = $('#iframe-vis'),
+        visJSON;
 
-    function init(themesJSON, _visMetas, visJSON) {
+    function init(themesJSON, _visMetas, _visJSON) {
 
         themes.init(themesJSON);
 
         visMetas = _visMetas;
+        visJSON = _visJSON;
 
         dw.backend.__currentVisLoaded = loadVisDfd.promise();
 
@@ -49,11 +51,6 @@ function(initHighlightSeries, visOptions, themes, checkChartHeight, loadVisDfd,
         initTabNav();
         initTransposeLink();
         initVisSelector();
-        initResizeChart();
-        initChartSize();
-
-        // init axes editor
-        axesEditor.init(chart, visJSON);
     }
 
     function onChartSave(chart) {
@@ -287,6 +284,7 @@ function(initHighlightSeries, visOptions, themes, checkChartHeight, loadVisDfd,
             }
         });
         themes.load();
+        axesEditor.init(chart, visJSON);
     }
 
     /** Set into `dw.backend.currentVis` the edited visualization (editor side) */
