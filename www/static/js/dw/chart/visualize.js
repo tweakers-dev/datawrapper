@@ -1,9 +1,9 @@
 
 define([
-    './visualize/highlight',
     './visualize/options',
     './visualize/themes',
     './visualize/checkChartHeight',
+    './visualize/updateSize',
     './visualize/loadVisDeferred',
     './visualize/initTabNav',
     './visualize/enableInlineEditing',
@@ -11,6 +11,7 @@ define([
     './visualize/updateSize',
     './visualize/options',
     './visualize/axesEditor',
+    './visualize/updateVisBackground',
     'js/misc/classify',
     './visualize/colorpicker',
     'js/misc/jquery.easing',
@@ -18,10 +19,9 @@ define([
 
 function(initHighlightSeries, visOptions, themes, checkChartHeight, loadVisDfd,
     initTabNav, enableInlineEditing, liveUpdate, updateSize, options, axesEditor,
-    classify) {
+    updateVisBackground, classify) {
 
     var _typeHasChanged = false,
-        _themeHasChanged = false,
         _axesHaveChanged = false,
         _transposed = false,
         __thumbTimer,
@@ -90,13 +90,32 @@ function(initHighlightSeries, visOptions, themes, checkChartHeight, loadVisDfd,
 
         if (_axesHaveChanged || _transposed || _typeHasChanged) {
             // reload options
+=======
+
+        options.init(chart, visJSON);
+        iframe.one('load', options.sync);
+    }
+
+    function onChartSave(chart) {
+
+        if (_typeHasChanged) {
+            // remove all notifications
+            $("#notifications .notification").fadeOutAndRemove();
+            dw.backend.fire('type-changed');
+            loadOptions().done(function() {
+                dw.backend.fire('type-changed-and-options-reloaded');
+                loadVis();
+            });
+        }
+
+        if (_axesHaveChanged || _transposed) {
+            dw.backend.fire('axes-changed-or-transposed');
             loadOptions().done(function() {
                 dw.backend.fire('options-reloaded');
                 loadVis();
             });
         }
 
-        _themeHasChanged = false;
         _typeHasChanged = false;
         _axesHaveChanged = false;
         _transposed = false;
@@ -119,7 +138,6 @@ function(initHighlightSeries, visOptions, themes, checkChartHeight, loadVisDfd,
         chart.observe(function(chart, changes) {
             _.each(changes, function(change) {
                 if (change.key == 'type') _typeHasChanged = true;
-                if (change.key == 'theme') _themeHasChanged = true;
                 if (change.key.substr(0, 13) == 'metadata.axes') _axesHaveChanged = true;
                 if (change.key == 'metadata.data.transpose') _transposed = true;
             });
@@ -161,6 +179,9 @@ function(initHighlightSeries, visOptions, themes, checkChartHeight, loadVisDfd,
                     dw.backend.fire('vis-msg-init');
                     win.dw_alert = dw.backend.alert;
                     win.__dw.backend = dw.backend;
+                }
+                if (evt.data == 'datawrapper:vis:rendered') {
+                    enableInlineEditing($('#iframe-vis'), chart);
                 }
                 if (evt.data.slice(0, 7) == 'notify:') {
                     dw.backend.notify(evt.data.slice(7));
@@ -267,50 +288,6 @@ function(initHighlightSeries, visOptions, themes, checkChartHeight, loadVisDfd,
         // */
     }
 
-    function initResizeChart() {
-        $('.resize-chart a').click(function(e) {
-            e.preventDefault();
-            var dim = $(e.target).html().split('×');
-            $('#resize-w').val(dim[0]);
-            $('#resize-h').val(dim[1]);
-            updateSize();
-        });
-    }
-
-    function initChartSize() {
-        var cw = chart.get('metadata.publish.embed-width', $('#iframe-wrapper').width()),
-            ch = chart.get('metadata.publish.embed-height', $('#iframe-wrapper').height());
-        $('#resize-w').val(cw);
-        $('#resize-h').val(ch);
-        $('.resize-chart input').change(_updateSize);
-        $('#iframe-wrapper').width(cw);
-        $('#iframe-wrapper').height(ch);
-    }
-
-
-    function scheduleThumbnail() {
-        clearTimeout(__thumbTimer);
-        __thumbTimer = setTimeout(function() {
-            dw.backend.snapshot(iframe, dw.backend.currentChart.get('id'), 'm', 260, 160);
-        }, 500);
-    }
-
-    function onDatasetLoaded() {
-        dw.backend.fire('dataset-loaded');
-        loadVis();
-        if (initHighlightSeries) initHighlightSeries();
-        _.each(themes.all(), function(theme) {
-            if (theme.id == chart.get('theme')) {
-                var w = chart.get('metadata.publish.embed-width', theme.default_width || 560),
-                    h = chart.get('metadata.publish.embed-height', theme.default_height || 400);
-                updateSize(w, h);
-                return false;
-            }
-        });
-        themes.load();
-        axesEditor.init(chart, visJSON);
-    }
-
     /** Set into `dw.backend.currentVis` the edited visualization (editor side) */
     function loadVis() {
         if (iframe.attr('src') === "") {
@@ -329,26 +306,28 @@ function(initHighlightSeries, visOptions, themes, checkChartHeight, loadVisDfd,
         loadVisDfd.resolve();
     }
 
+    function scheduleThumbnail() {
+        clearTimeout(__thumbTimer);
+        __thumbTimer = setTimeout(function() {
+            dw.backend.snapshot(iframe, dw.backend.currentChart.get('id'), 'm', 260, 160);
+        }, 500);
+    }
 
-    function updateVisBackground() {  // and show msg if chart needs more space
-        var iframe = $('#iframe-vis').contents(),
-            bgcol =  $('body', iframe).css('background-color'),
-            white = bgcol == 'rgb(255, 255, 255)' || bgcol == '#ffffff' || bgcol == 'white' || bgcol == 'transparent',
-            border = white ? '#ffffff' : '#bbb';
-
-        bgcol = dw.backend.currentChart.get('metadata.publish.contextBg') || dw.backend.currentChart.get('metadata.publish.background');
-
-        $('#iframe-wrapper').css({
-            'background-color': white ? '#ffffff' : bgcol,
-            'border-color': border
+    function onDatasetLoaded() {
+        dw.backend.fire('dataset-loaded');
+        loadVis();
+        _.each(themes.all(), function(theme) {
+            if (theme.id == chart.get('theme')) {
+                var w = chart.get('metadata.publish.embed-width', theme.default_width || 560),
+                    h = chart.get('metadata.publish.embed-height', theme.default_height || 400);
+                updateSize(w, h);
+                return false;
+            }
         });
+        themes.load();
+        axesEditor.init(chart, visJSON);
     }
 
-    // chart resizing
-    function _updateSize() {
-        clearTimeout(__updateSizeTimer);
-        __updateSizeTimer = setTimeout(updateSize, 300);
-    }
 
     return {
         init: init
