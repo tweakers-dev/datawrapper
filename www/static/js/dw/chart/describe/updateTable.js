@@ -8,10 +8,14 @@ define(function() {
             return col;
         }
 
+        var dataset;
+
         /*
          * updates the Handonstable
          */
-        return function(dataset) {
+        return function(_dataset) {
+
+            dataset = _dataset;
 
             var data = [],
                 horzHeaders = chart.get('metadata.data.horizontal-header'),
