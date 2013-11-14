@@ -53,27 +53,26 @@
         chart.set('lastEditStep', {{ createstep }});
     }
 
-dw.backend.ready(function() {
+    dw.backend.ready(function() {
 
-    dw.backend.syncChart(chart);
+        dw.backend.syncChart(chart);
 
-    _.templateSettings = {
-        interpolate : /\{\{(.+?)\}\}/g
-    };
+        _.templateSettings = {
+            interpolate : /\{\{(.+?)\}\}/g
+        };
 
-    $('.chart-editor').on('click', '.submit', function(e) {
-        var a = $(e.target);
-        if (e.target.nodeName.toLowerCase() != 'a') a = a.parents('a');
-        if (chart.hasUnsavedChanges()) {
-            e.preventDefault();
-            chart.onSave(function() {
-                location.href = a.attr('href');
-            });
-        }
+        $('.chart-editor .submit').on('click', function(e) {
+            var a = $(e.target);
+            if (e.target.nodeName.toLowerCase() != 'a') a = a.parents('a');
+            if (chart.hasUnsavedChanges()) {
+                e.preventDefault();
+                chart.onSave(function() {
+                    location.href = a.attr('href');
+                });
+            }
+        });
+
     });
-
-});
-
 
 </script>
 
