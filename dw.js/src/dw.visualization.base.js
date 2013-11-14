@@ -95,7 +95,6 @@ _.extend(dw.visualization.base, {
         _.each(columnFormat, function(format, key) {
             ignore[key] = !!format.ignore;
         });
-        me.dataset.filterColumns(ignore);
         return me;
     },
 
