@@ -199,3 +199,44 @@
     position: relative;
     top: -6px;
 }
+
+.context-menu-list .context-menu-item.selected {
+    font-weight: bold;
+    background: #eee;
+}
+
+.context-menu-list .context-menu-item.icon {
+    display: block;
+    width: auto;
+    height: auto;
+    margin-top: auto;
+    line-height: auto;
+}
+
+.context-menu-list .context-menu-item.icon-number:before {
+    content: "#";
+    color: #888;
+    font-weight: bold;
+    position: absolute;
+    top: 3px;
+    left: 10px;
+}
+
+.context-menu-list .context-menu-item.icon-text:before {
+    content: "T";
+    color: #888;
+    font-family: "Times New Roman";
+    position: absolute;
+    top: 3px;
+    left: 10px;
+}
+.context-menu-list .context-menu-item.icon-date:before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    width: 10px;
+    height: 10px;
+    opacity: 0.6;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAA3NCSVQICAjb4U/gAAAAHlBMVEX///8zMzMAAAAzMzMzMzMGBgYzMzMAAAAAAAAzMzPU2y45AAAACnRSTlMAEREiM0RVu8z/cCBFfgAAAAlwSFlzAAALEgAACxIB0t1+/AAAABh0RVh0Q3JlYXRpb24gVGltZQAxNC4xMS4yMDEz5wF1fAAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAA8SURBVAiZY2DwnDmFgYFtSqBnAoOnQBPjFIYpDE0MngwTgKQkw0SGjgJJoAgTUMRTgIF5ClClIFAlWBcAnaoNQL4HGRgAAAAASUVORK5CYII=) top left no-repeat;
+}

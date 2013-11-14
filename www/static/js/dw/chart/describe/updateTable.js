@@ -87,27 +87,47 @@ define(function() {
 
             $('thead tr', $dataPreview).contextMenu({
                 selector: "th",
-                callback: function(key, options) {
-                    var m = "clicked: " + key;
-                    console.log(m);
-                },
-                trigger: 'none',
-                items: {
-                    type: {
-                        name: messages.columnType,
-                        items: {
-                            auto: { name: messages.auto },
-                            text: { name: messages.text },
-                            number: { name: messages.number },
-                            date: { name: messages.date }
-                        }
-                    },
-                    format: {
-                        name: messages.inputFormat,
-                        items: {
-                            auto: { name: messages.auto }
-                        }
-                    }
+                build: function($trigger, evt) {
+                    var column = dataset.column($trigger.index()-1),
+                        columnFormat = chart.get('metadata.data.column-format', {})[column.name()] || {},
+                        items = {
+                            type: {
+                                name: messages.columnType,
+                                items: {
+                                    auto: { name: messages.auto },
+                                    text: { name: messages.text, icon: 'text'},
+                                    number: { name: messages.number, icon: 'number' },
+                                    date: { name: messages.date, icon: 'date' }
+                                }
+                            },
+                            format: {
+                                name: messages.inputFormat,
+                                items: {
+                                    auto: { name: messages.auto }
+                                }
+                            }
+                        };
+
+                    if (!columnFormat.type) items.type.items.auto.name += ' ('+messages[column.type()]+')  ';
+                    items.type.items[columnFormat.type || 'auto'].className = 'selected';
+
+                    return {
+                        callback: function(key, options) {
+                            // deep-clone object to avoid setting old value
+                            var colFormat = $.extend(true, {}, chart.get('metadata.data.column-format', {}));
+                            if (!colFormat[column.name()]) colFormat[column.name()] = {};
+                            if (key == 'auto') {
+                                delete colFormat[column.name()].type;
+                            } else {
+                                colFormat[column.name()].type = key;
+                            }
+                            // delete key to avoid casting to array during JSON encode
+                            if (JSON.stringify(colFormat[column.name()]) == '[]') delete colFormat[column.name()];
+                            chart.set('metadata.data.column-format', colFormat);
+                        },
+                        trigger: 'none',
+                        items: items
+                    };
                 }
             });
 
