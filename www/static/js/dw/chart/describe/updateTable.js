@@ -79,7 +79,6 @@ define(function() {
 
             // context menu
             $('thead tr th+th', $dataPreview).off('click').on('click', function(evt) {
-                console.log('clicked column header');
                 $(this).contextMenu();
                 selectedColumns[0] = getIndexOfTh(this);
                 $dataPreview.handsontable('render');
