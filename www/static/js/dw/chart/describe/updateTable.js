@@ -10,6 +10,22 @@ define(function() {
 
         var dataset;
 
+        var textW = (function() {
+            function charW(w, c) {
+                if (c == 'W' || c == 'M') w += 15;
+                else if (c == 'w' || c == 'm') w += 12;
+                else if (c == 'I' || c == 'i' || c == 'l' || c == 't' || c == 'f') w += 4;
+                else if (c == 'r') w += 8;
+                else if (c == c.toUpperCase()) w += 12;
+                else w += 10;
+                return w;
+            }
+
+            return function(s) {
+                return _.reduce(s.split(''), charW, 0);
+            };
+        })();
+
         /*
          * updates the Handonstable
          */
@@ -20,6 +36,7 @@ define(function() {
             var data = [],
                 horzHeaders = chart.get('metadata.data.horizontal-header'),
                 transpose = chart.get('metadata.data.transpose'),
+                colW = [],
                 tr = buildDataArray(dataset);
 
             if ($dataPreview.handsontable('getInstance')) {
@@ -41,6 +58,7 @@ define(function() {
                     fixedRowsTop: function(){ return horzHeaders ? 1: 0; },
                     rowHeaders: true,
                     colHeaders: true,
+                    colWidths: colW,
                     fillHandle: false,
                     stretchH: 'all',
                     cells: function (row, col, prop) {
@@ -95,6 +113,7 @@ define(function() {
                                 name: messages.columnType,
                                 items: {
                                     auto: { name: messages.auto },
+                                    sep1: "---------",
                                     text: { name: messages.text, icon: 'text'},
                                     number: { name: messages.number, icon: 'number' },
                                     date: { name: messages.date, icon: 'date' }
@@ -103,13 +122,21 @@ define(function() {
                             format: {
                                 name: messages.inputFormat,
                                 items: {
-                                    auto: { name: messages.auto }
+                                    auto: { name: messages.auto },
+                                    sep: "---------"
                                 }
                             }
                         };
 
+                    // select column format
                     if (!columnFormat.type) items.type.items.auto.name += ' ('+messages[column.type()]+')  ';
                     items.type.items[columnFormat.type || 'auto'].className = 'selected';
+
+                    // fill input formats
+                    _.each(column.type(true).ambiguousFormats(), function(fmt) {
+                        console.log(fmt);
+                        items.format.items[fmt[0]] = { name: fmt[1] };
+                    });
 
                     return {
                         callback: function(key, options) {
@@ -137,6 +164,13 @@ define(function() {
                 var tr = [];
                 ds.eachColumn(function(column) {
                     tr.push(column.title());
+                    var w = column.type() == 'text' ? _.reduce(column.values(), function(memo, s) { return Math.max(textW(s), memo); }, 0) :
+                        column.type() == 'date' ? 120 :
+                        Math.max(
+                            String(column.range()[1]).length * 12,
+                            String(column.range()[0]).length * 12
+                        );
+                    colW.push(Math.max(80, w));
                 });
                 data.push(tr);
 
