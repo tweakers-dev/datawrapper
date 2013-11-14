@@ -362,7 +362,8 @@ dw.column.types.text = function() {
         name: function() { return 'text'; },
         formatter: function() { return _.identity; },
         isValid: function() { return true; },
-        format: function() { }
+        format: function() { },
+        ambiguousFormats: function() { return []; }
     };
 };
 
