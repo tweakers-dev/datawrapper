@@ -55,16 +55,17 @@ define(['dragdrop'], function() {
                 // populate axes
                 var columns = visAxes[id],
                     axesColDiv = $('.axis-columns', d);
-                if (!_.isArray(columns)) columns = [columns];
-
-                _.each(columns, function(col) {
-                    $('<div />').addClass('column')
-                        .html(col.title())
-                        .attr('data-type', col.type())
-                        .addClass('column-'+col.type())
-                        .attr('data-id', col.name())
-                        .appendTo(axesColDiv);
-                });
+                if (columns) {
+                    if (!_.isArray(columns)) columns = [columns];
+                    _.each(columns, function(col) {
+                        $('<div />').addClass('column')
+                            .html(col.title())
+                            .attr('data-type', col.type())
+                            .addClass('column-'+col.type())
+                            .attr('data-id', col.name())
+                            .appendTo(axesColDiv);
+                    });
+                }
                 axesColDiv.sortable({ revert: true });
             }
 
