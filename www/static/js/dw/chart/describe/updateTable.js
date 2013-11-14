@@ -122,7 +122,7 @@ define(function() {
                             format: {
                                 name: messages.inputFormat,
                                 items: {
-                                    auto: { name: messages.auto },
+                                    "format/auto": { name: messages.auto },
                                     sep: "---------"
                                 }
                             }
@@ -134,19 +134,30 @@ define(function() {
 
                     // fill input formats
                     _.each(column.type(true).ambiguousFormats(), function(fmt) {
-                        console.log(fmt);
-                        items.format.items[fmt[0]] = { name: fmt[1] };
+                        items.format.items['format/' + fmt[0]] = { name: fmt[1] };
+                        var k = 'format/' + (columnFormat['input-format'] || 'auto');
+                        if (items.format.items[k]) items.type.items[k].className = 'selected';
                     });
 
                     return {
                         callback: function(key, options) {
-                            // deep-clone object to avoid setting old value
                             var colFormat = $.extend(true, {}, chart.get('metadata.data.column-format', {}));
                             if (!colFormat[column.name()]) colFormat[column.name()] = {};
-                            if (key == 'auto') {
-                                delete colFormat[column.name()].type;
+
+                            if (key.substr(0,7) == 'format/') {
+                                key = key.substr(7);
+                                if (key == 'auto') {
+                                    delete colFormat[column.name()]['input-format'];
+                                } else {
+                                    colFormat[column.name()]['input-format'] = key;
+                                }
                             } else {
-                                colFormat[column.name()].type = key;
+                                // deep-clone object to avoid setting old value
+                                if (key == 'auto') {
+                                    delete colFormat[column.name()].type;
+                                } else {
+                                    colFormat[column.name()].type = key;
+                                }
                             }
                             // delete key to avoid casting to array during JSON encode
                             if (JSON.stringify(colFormat[column.name()]) == '[]') delete colFormat[column.name()];
