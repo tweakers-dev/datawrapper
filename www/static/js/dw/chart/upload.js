@@ -7,22 +7,18 @@ define(['./describe'], function(describe) {
 
         chart = dw.backend.currentChart;
 
-        $('#upload-data, .create-nav .submit').click(function(e) {
-            uploadData('#describe');
-            e.preventDefault();
-        });
-
         var txtarea = $('#upload-data-text');
 
         initFileUpload(txtarea);
 
-        $('.submit').click(function(e) {
+        $('#upload-data, .create-nav .submit').click(function(e) {
             if (txtarea.val() != txtarea.data('orig-val')) {
                 e.preventDefault();
                 var a = $(e.target);
                 if (e.target.nodeName.toLowerCase() != "a") a = a.parents('a');
                 uploadData(a.attr('href'));
             }
+            return true;
         });
 
         initDemoDatasets();
