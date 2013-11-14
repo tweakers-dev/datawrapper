@@ -145,8 +145,11 @@ define(function() {
             function cellRenderer(instance, td, row, col, prop, value, cellProperties) {
                 var column = dataset.column(col);
                 if (row > 0) {
-                    var formatter = chart.columnFormatter(column);
-                    value = formatter(column.val(row - 1), true);
+                    if (column.type() == 'number') {
+                        value = Globalize.format(column.val(row - 1));
+                    } else {
+                        value = chart.columnFormatter(column)(column.val(row - 1), true);
+                    }
                 }
                 HtmlCellRender.apply(this, arguments);
                 if (parseInt(value, 10) < 0) { //if row contains negative number
