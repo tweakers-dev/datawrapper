@@ -12,11 +12,13 @@ define(['./describe'], function(describe) {
         initFileUpload(txtarea);
 
         $('#upload-data, .create-nav .submit').click(function(e) {
+            e.preventDefault();
             if (txtarea.val() != txtarea.data('orig-val')) {
-                e.preventDefault();
                 var a = $(e.target);
                 if (e.target.nodeName.toLowerCase() != "a") a = a.parents('a');
                 uploadData(a.attr('href'));
+            } else {
+                nextPage('#describe');
             }
             return true;
         });
