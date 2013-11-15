@@ -5,7 +5,7 @@
 <div class="dw-create-describe chart-editor{% if not has_data %} hidden{% endif %}">
 
     <div class="row">
-        <div class="span2-5">
+        <div class="span3">
             <h3 style="margin-top:0">{% trans "Describe your data" %}</h3>
 
             <p>{% trans "Congrats, it looks that your dataset has been parsed correctly. Please confirm that." %}</p>
@@ -15,24 +15,10 @@
                     <label class="checkbox"><input id="has-headers" type="checkbox" checked="checked"> {% trans "First row as label" %}</label>
                 </p>
             </div>
-            <br />
-            <a class="btn" href="#upload"><i class="icon-chevron-left"></i> {% trans "Upload a new dataset" %}</a>
-        </div>
-        <div class="span7">
 
-            <div class="transpose-help help">⤹ <span>{% trans "Transpose data table" %}</span></div>
-
-            <div id="data-preview"></div>
-
-            <button class="btn disabled" id="reset-data-changes" title="{% trans "Revert data changes" %}">{% trans "Revert data changes" %}</button>
-        </div>
-
-        <div class="span2-5">
             <div class="sidebar">
 
                 <div id="table-options">
-
-                    <p>{% trans "Please make sure that the column format has been detected correctly. Datawrapper supports three different types: text, number and date. You can overwrite the auto-detected format by clicking in the column header." %}</p>
 
                     <h3 style="margin-top:20px">{% trans "Credit the source" %}</h3>
                     <p>
@@ -46,11 +32,29 @@
                     </p>
 
                 </div>
+                <hr />
 
-                <a href="visualize" class="submit pull-right btn btn-primary" id="describe-proceed">{% trans "Visualize" %} <i class="icon-chevron-right icon-white"></i></a>
+                <a class="btn" href="#upload"><i class="icon-chevron-left"></i> {% trans "Return to upload" %}</a>
 
             </div>
+
         </div>
+        <div class="span9">
+
+            <div class="transpose-help help">⤹ <span>{% trans "Transpose data table" %}</span></div>
+            <div class="column-format-help help"><span>{% trans "Click table header to change column types" %}</span> ⤵︎</div>
+
+
+            <div id="data-preview"></div>
+
+            
+            <div>
+                <button class="pull-left btn disabled" id="reset-data-changes" title="{% trans "Revert data changes" %}">{% trans "Revert data changes" %}</button>
+
+                <a href="visualize" style="margin-top:20px" class="submit pull-right btn btn-primary" id="describe-proceed">{% trans "Visualize" %} <i class="icon-chevron-right icon-white"></i></a>
+            </div>
+        </div>
+
     </div>
 
     <div class="row">
