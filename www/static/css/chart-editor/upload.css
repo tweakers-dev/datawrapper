@@ -195,14 +195,32 @@
     margin-top: 10px;
 }
 
+.column-format-help {
+    margin-right: 22px;
+    float: right;
+    margin-top: 10px;
+}
+
+
 .help span {
     position: relative;
     top: -6px;
 }
 
-.context-menu-list .context-menu-item.selected {
+.context-menu-list .context-menu-item.header {
     font-weight: bold;
+    text-decoration: underline;
+    color: #444;
     background: #eee;
+}
+
+html .context-menu-list .context-menu-item.header:hover {
+    background: #eee;
+}
+
+
+.context-menu-list .context-menu-item.selected {
+    background: #9cf;
 }
 
 .context-menu-list .context-menu-item.icon {
@@ -243,3 +261,4 @@
 .context-menu-list .context-menu-item.context-menu-separator {
     padding: 1px 0!important;
 }
+

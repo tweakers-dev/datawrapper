@@ -109,34 +109,24 @@ define(function() {
                     var column = dataset.column($trigger.index()-1),
                         columnFormat = chart.get('metadata.data.column-format', {})[column.name()] || {},
                         items = {
-                            type: {
-                                name: messages.columnType,
-                                items: {
-                                    auto: { name: messages.auto },
-                                    sep1: "---------",
-                                    text: { name: messages.text, icon: 'text'},
-                                    number: { name: messages.number, icon: 'number' },
-                                    date: { name: messages.date, icon: 'date' }
-                                }
-                            },
-                            format: {
-                                name: messages.inputFormat,
-                                items: {
-                                    "format/auto": { name: messages.auto },
-                                    sep: "---------"
-                                }
-                            }
+                            h1: { name: messages.columnType+':', disabled: true, className: 'header' },
+                            auto: { name: messages.auto },
+                            text: { name: messages.text, icon: 'text'},
+                            number: { name: messages.number, icon: 'number' },
+                            date: { name: messages.date, icon: 'date' },
+                            h2: { name: messages.inputFormat+':', disabled: true, className: 'header' },
+                            "format/auto": { name: messages.auto }
                         };
 
                     // select column format
-                    if (!columnFormat.type) items.type.items.auto.name += ' ('+messages[column.type()]+')  ';
-                    items.type.items[columnFormat.type || 'auto'].className = 'selected';
+                    if (!columnFormat.type) items.auto.name += ' ('+messages[column.type()]+')  ';
+                    items[columnFormat.type || 'auto'].className = 'selected';
 
                     // fill input formats
                     _.each(column.type(true).ambiguousFormats(), function(fmt) {
-                        items.format.items['format/' + fmt[0]] = { name: fmt[1] };
+                        items['format/' + fmt[0]] = { name: fmt[1] };
                         var k = 'format/' + (columnFormat['input-format'] || 'auto');
-                        if (items.format.items[k]) items.type.items[k].className = 'selected';
+                        if (items[k]) items[k].className = 'selected';
                     });
 
                     return {
