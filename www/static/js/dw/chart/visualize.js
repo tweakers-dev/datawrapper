@@ -253,6 +253,8 @@ function(themes, checkChartHeight, updateSize, loadVisDfd, initTabNav, enableInl
         dw.backend.currentVis.dataset = chart.dataset().reset();
         dw.backend.currentVis.meta = visMetas[chart.get('type')];
         options.init(chart, visMetas[chart.get('type')]);
+        axesEditor.init(chart, visMetas[chart.get('type')]);
+        axesEditor.updatePreview();
         if (!_optionsSynchronized) {
             _optionsSynchronized = true;
             options.sync();

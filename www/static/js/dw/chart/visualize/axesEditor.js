@@ -9,6 +9,32 @@ define(['dragdrop'], function() {
             : jQuery("<p>").append(this.eq(0).clone()).html();
     };
 
+    function updatePreview() {
+        var $prev = $('.axes-preview').html(''),
+            visAxes = dw.backend.currentVis.axes(true);
+        _.each(_visJSON.axes, function(axis, id) {
+            var columns = visAxes[id],
+                a = $('<div />').addClass('axis').appendTo($prev),
+                ac = $('<div />').addClass('axis-columns');
+            $('<div />').addClass('axis-title').html(axis.title || axis.id).appendTo(a);
+            ac.appendTo(a);
+            if (columns) {
+                if (!_.isArray(columns)) columns = [columns];
+                _.each(columns, function(col) {
+                    $('<div />').addClass('column')
+                        .html(col.title())
+                        .attr('data-type', col.type())
+                        .addClass('column-'+col.type())
+                        .attr('data-id', col.name())
+                        .appendTo(ac);
+                });
+            } else {
+                ac.html('∅');
+            }
+
+        });
+    }
+
     return {
         init: function(chart, visJSON) {
             _chart = chart;
@@ -282,7 +308,9 @@ define(['dragdrop'], function() {
                 chart.set('metadata.axes', chartAxes);
             }
 
-        }
+        },
+
+        updatePreview: updatePreview
     };
 
 });

@@ -37,7 +37,7 @@
 }
 
 .axes-editor .axis .axis-title,
-.axes-preview .axis label {
+.axes-preview .axis .axis-title {
     font-size: 11px;
     text-transform: uppercase;
     text-align: center;
@@ -45,7 +45,7 @@
     font-weight: bold;
 }
 
-.axes-preview .axis label {
+.axes-preview .axis .axis-title {
     text-align: left;
 }
 
@@ -231,3 +231,47 @@
     height: 100%;
 }
 
+.axes-preview .axis {
+    margin-bottom: 10px;
+}
+
+.axes-preview .axis .axis-title,
+.axes-preview .axis .axis-columns {
+
+}
+
+.axes-preview .axis .axis-title {
+    color: #222;
+}
+
+.axes-preview .axis .axis-columns {
+    width: 100%;
+    color: #888;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.axes-preview .axis .axis-columns .column {
+    display: inline-block;
+}
+
+
+.axes-preview .axis .axis-columns .column:after {
+    content: ", ";
+}
+
+.axes-preview .axis .axis-columns .column:last-child:after {
+    content: "";
+}
+
+.axes-preview .axis .axis-columns .column + .column + .column + .column {
+    opacity: 0.7;
+}
+
+.axes-preview .axis .axis-columns .column + .column + .column + .column + .column {
+    opacity: 0.3;
+}
+
+.axes-preview .axis .axis-columns .column + .column + .column + .column + .column + .column {
+    display: none;
+}
