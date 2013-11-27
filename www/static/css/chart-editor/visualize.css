@@ -36,12 +36,17 @@
     padding: 10px;
 }
 
-.axes-editor .axis .axis-title {
+.axes-editor .axis .axis-title,
+.axes-preview .axis label {
     font-size: 11px;
     text-transform: uppercase;
     text-align: center;
     color: #777;
     font-weight: bold;
+}
+
+.axes-preview .axis label {
+    text-align: left;
 }
 
 .axes-editor .axis .body {

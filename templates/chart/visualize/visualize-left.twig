@@ -15,10 +15,21 @@
 
     {# todo: axes editor #}
 
-    <div class="section axes-preview">
+    <div class="section">
         <h3>{% trans "Axes mapping" %}</h3>
 
-        <a href="#axes-editor" class="btn-customize btn">{% trans "Customize axis mapping" %}</a>
+        <div class="axes-preview">
+            <div class="axis">
+                <label>Tooltip</label>
+                <div class="axis-columns">
+                    <div class="column">Title</div>
+                </div>
+            </div>
+        </div>
+
+        <a href="#axes-editor" class="btn-customize-axes btn">
+            <i class="icon-wrench"></i> {% trans "Customize axis mapping" %}
+        </a>
 
         {% if vis.dimensions == 1 %}
         <div class="control-group select-row">
