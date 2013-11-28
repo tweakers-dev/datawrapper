@@ -23,7 +23,8 @@ class DatawrapperPlugin_VisualizationColumnCharts extends DatawrapperPlugin_Visu
                     "accepts" => array("text", "date")
                 ),
                 "columns" => array(
-                    "accepts" => array("number"),
+                    "accepts" => array("number", "date"),
+                    "prefers" => array("number"),
                     "multiple" => true
                 )
             ),
