@@ -3,7 +3,7 @@ define(['./axesEditor'], function(axesEditor) {
 
     return function() {
 
-        $('.visualize-left .btn-customize-axes').click(function(evt) {
+        $('.visualize-left .customize-axes, .visualize-left .axes-preview').click(function(evt) {
             evt.preventDefault();
             $('.visualize-left').removeClass('span2-5').addClass('span5');
             $('.visualize-right').hide();
