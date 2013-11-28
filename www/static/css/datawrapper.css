@@ -1651,3 +1651,14 @@ html .context-menu-submenu:after {
 html .context-menu-submenu:hover:after {
     color: #fff;
 }
+
+.coachmark-popover {
+    background-color: #fcfccf;
+}
+
+.coachmark-popover.right .arrow:after {
+    border-right-color: #fcfccf;
+}
+.coachmark-popover.left .arrow:after {
+    border-left-color: #fcfccf;
+}
