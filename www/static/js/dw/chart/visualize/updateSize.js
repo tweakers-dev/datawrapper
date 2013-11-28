@@ -12,7 +12,6 @@ define(function() {
         $('#iframe-wrapper').css({
             width: w,
             height: h,
-            'margin-left': (maxW - w) * 0.5
         });
 
         chart.set('metadata.publish.embed-width', w);

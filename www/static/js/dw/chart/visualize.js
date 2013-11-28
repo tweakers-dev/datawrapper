@@ -13,7 +13,8 @@ define([
     'js/misc/classify',
     './visualize/colorpicker',
     'js/misc/jquery.easing',
-    'selectize'],
+    'selectize',
+    'jqueryui'],
 
 function(themes, checkChartHeight, updateSize, loadVisDfd, initTabNav, enableInlineEditing,
     liveUpdate, options, axesEditor, updateVisBackground, classify) {
@@ -27,6 +28,7 @@ function(themes, checkChartHeight, updateSize, loadVisDfd, initTabNav, enableInl
         chart = dw.backend.currentChart,
         visMetas = {},
         iframe = $('#iframe-vis'),
+        iframeWrap = iframe.parent(),
         visJSON;
 
     function init(themesJSON, _visMetas, _visJSON) {
@@ -49,6 +51,22 @@ function(themes, checkChartHeight, updateSize, loadVisDfd, initTabNav, enableInl
         initTabNav();
         initTransposeLink();
         initVisSelector();
+
+        $('<div/>').addClass('dimensions').appendTo(iframeWrap);
+
+        iframeWrap.resizable({
+            minHeight: 300,
+            minWidth: 300,
+            handles: "e, s, se",
+            //helper: 'resize-helper'
+            start: function() {
+                iframeWrap.addClass('resizing');
+            },
+            stop: function() {
+                iframeWrap.removeClass('resizing');
+                updateSize(iframe.width(), iframe.height());
+            }
+        });
     }
 
     function onChartSave(chart) {

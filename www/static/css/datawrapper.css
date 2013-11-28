@@ -678,6 +678,7 @@ dl.dl-horizontal dd {
     background: #fff;
     max-width: 98%;
     margin: 0 auto;
+    background: url(chart-editor/resize-handle.png) bottom right no-repeat;
 }
 
 #iframe-vis {
@@ -686,6 +687,10 @@ dl.dl-horizontal dd {
     height: 100%;
     margin: 0;
     padding: 0;
+}
+
+#iframe-wrapper.resizing iframe {
+    pointer-events: none;
 }
 
 .visualization [contenteditable=true]:hover:after {
