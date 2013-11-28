@@ -104,6 +104,7 @@ _.extend(dw.visualization.base, {
             usedColumns = {},
             axes = {},
             axesDef,
+            preferred = true,
             axesAsColumns = {},
             errors = [];
 
@@ -123,18 +124,19 @@ _.extend(dw.visualization.base, {
             }
         });
 
+        _.each(me.meta.axes, function(axisDef) {
+            // fallback to accepts
+            if (!axisDef.prefers) axisDef.prefers = axisDef.accepts;
+        });
+
         // auto-populate remaining axes
-        _.each(me.meta.axes, function(axisDef, key) {
-            function checkColumn(col) {
-                return !usedColumns[col.name()] &&
-                    _.indexOf(axisDef.accepts, col.type()) >= 0;
-            }
-            function errMissingColumn() {
-                var msg = dw.backend ?
-                        dw.backend.messages.insufficientData :
-                        'The visualization needs at least one column of the type %type to populate axis %key';
-                errors.push(msg.replace('%type', axisDef.accepts).replace('%key', key));
-            }
+        _.each(me.meta.axes, autoPopulate);
+        // re-run a second time after preferred columns are found
+        preferred = false;
+        _.each(me.meta.axes, autoPopulate);
+
+        function autoPopulate(axisDef, key) {
+            var types = preferred ? axisDef.prefers : axisDef.accepts;
             if (axes[key]) return;  // user has defined this axis already
             if (!axisDef.optional) {
                 if (!axisDef.multiple) {
@@ -145,7 +147,7 @@ _.extend(dw.visualization.base, {
                         axes[key] = c.name();
                     } else {
                         // try to auto-populate missing text column
-                        if (_.indexOf(axisDef.accepts, 'text') >= 0) {
+                        if (_.indexOf(types, 'text') >= 0) {
                             var col = dw.column(key, _.map(_.range(dataset.numRows()), function(i) {
                                 return (i > 25 ? String.fromCharCode(64+i/26) : '') + String.fromCharCode(65+(i%26));
                             }), 'text');
@@ -165,14 +167,24 @@ _.extend(dw.visualization.base, {
                             axes[key].push(c.name());
                         }
                     });
-                    if (!axes[key].length) {
+                    if (!axes[key].length && !preferred) {
                         errMissingColumn();
                     }
                 }
             } else {
                 axes[key] = false;
             }
-        });
+            function checkColumn(col) {
+                return !usedColumns[col.name()] &&
+                    _.indexOf(types, col.type()) >= 0;
+            }
+            function errMissingColumn() {
+                var msg = dw.backend ?
+                        dw.backend.messages.insufficientData :
+                        'The visualization needs at least one column of the type %type to populate axis %key';
+                errors.push(msg.replace('%type', axisDef.accepts).replace('%key', key));
+            }
+        }
 
         if (errors.length) {
             me.notify(errors.join('<br />'));
