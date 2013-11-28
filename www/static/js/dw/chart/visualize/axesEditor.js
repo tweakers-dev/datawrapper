@@ -1,5 +1,5 @@
 
-define(['dragdrop'], function() {
+define(['jqueryui'], function() {
 
     var _chart, _visJSON;
 
