@@ -48,7 +48,9 @@
     <script type="text/javascript" src="/static/js/dw-backend.js"></script>
 
     {% if page_css %}
-    <link href="/static/css/{{ page_css }}" rel="stylesheet">
+    {% for css in page_css %}
+    <link href="/static/css/{{ css }}" rel="stylesheet">
+    {% endfor %}
     {% endif %}
 
     {% for js in plugin_js %}
