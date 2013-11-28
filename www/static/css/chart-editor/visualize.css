@@ -197,3 +197,7 @@
 .axes-preview .axis .axis-columns .column + .column + .column + .column + .column + .column {
     display: none;
 }
+
+.section + .section {
+    margin-top: 2em;
+}
