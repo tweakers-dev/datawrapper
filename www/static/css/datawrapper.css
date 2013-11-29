@@ -1616,7 +1616,9 @@ html .selectize-control.multi .selectize-input {
 }
 
 .chart-editor .section h3 {
-    margin-bottom: 5px;
+    margin-bottom: 12px;
+    font-weight: 300;
+    font-size: 22px;
 }
 
 /* context menu */
@@ -1655,7 +1657,6 @@ html .context-menu-submenu:hover:after {
 .coachmark-popover {
     background-color: #fcfccf;
 }
-
 .coachmark-popover.right .arrow:after {
     border-right-color: #fcfccf;
 }
