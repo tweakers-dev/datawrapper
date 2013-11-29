@@ -34,9 +34,11 @@ dw.backend.ready(function() {
             {% include "chart/annotate/annotate-left.twig" %}
         </div>
         <div class="span7">
-            <div id="iframe-wrapper" style="height:500px;" >
-                <iframe id="iframe-vis" src="/chart/{{ chart.id }}/preview?innersvg=1&amp;random={{ random() }}" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen>
-                </iframe>
+            <div>
+                <div id="iframe-wrapper" style="height:500px;" >
+                    <iframe id="iframe-vis" src="/chart/{{ chart.id }}/preview?innersvg=1&amp;random={{ random() }}" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen>
+                    </iframe>
+                </div>
             </div>
             <div class="resize-chart-wrap">
                 <div class="resize-chart">
