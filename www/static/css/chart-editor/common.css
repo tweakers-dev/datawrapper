@@ -13,7 +13,7 @@
     background: #fff;
     max-width: 98%;
     margin: 0 auto;
-    background: url(chart-editor/resize-handle.png) bottom right no-repeat;
+    background: url(resize-handle.png) bottom right no-repeat;
 }
 
 #iframe-vis {
@@ -28,7 +28,6 @@
     pointer-events: none;
 }
 
-
 .coachmark-popover {
     background-color: #fcfccf;
 }
@@ -37,4 +36,13 @@
 }
 .coachmark-popover.left .arrow:after {
     border-left-color: #fcfccf;
+}
+
+.chart-dimensions {
+    width: 12ex;
+    margin: 0 auto;
+    padding: 10px;
+    background: #bbb;
+    color: #fff;
+    text-align: center;
 }
