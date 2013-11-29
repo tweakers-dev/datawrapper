@@ -21,6 +21,7 @@ $app->get('/chart/:id/visualize', function ($id) use ($app) {
             'debug' => !empty($GLOBALS['dw_config']['debug_export_test_cases']) ? '1' : '0'
         );
         add_header_vars($page, 'chart', array(
+            'chart-editor/common.css',
             'chart-editor/visualize.css',
             'vendor/jquery-ui-1.10.3.custom.css'));
         add_editor_nav($page, 2);

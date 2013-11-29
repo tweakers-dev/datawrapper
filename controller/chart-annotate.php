@@ -19,7 +19,10 @@ $app->get('/chart/:id/annotate', function ($id) use ($app) {
             'themes' => DatawrapperTheme::all(),
             'theme' => DatawrapperTheme::get($chart->getTheme())
         );
-        add_header_vars($page, 'chart', 'chart-editor/annotate.css');
+        add_header_vars($page, 'chart', array(
+            'chart-editor/common.css',
+            'chart-editor/annotate.css'
+        ));
         add_editor_nav($page, 3);
 
         $app->render('chart/annotate.twig', $page);
