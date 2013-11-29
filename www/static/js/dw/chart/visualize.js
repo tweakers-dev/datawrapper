@@ -2,7 +2,6 @@
 define([
     './visualize/themes',
     './visualize/checkChartHeight',
-    './visualize/updateSize',
     './visualize/loadVisDeferred',
     './visualize/initTabNav',
     './visualize/enableInlineEditing',
@@ -10,21 +9,22 @@ define([
     './visualize/options',
     './visualize/axesEditor',
     './visualize/updateVisBackground',
+    './visualize/resizeChart',
     'js/misc/classify',
     './visualize/colorpicker',
     'js/misc/jquery.easing',
+    'dw/backend/ui/coachmark',
     'selectize',
     'jqueryui'],
 
-function(themes, checkChartHeight, updateSize, loadVisDfd, initTabNav, enableInlineEditing,
-    liveUpdate, options, axesEditor, updateVisBackground, classify) {
+function(themes, checkChartHeight, loadVisDfd, initTabNav, enableInlineEditing,
+    liveUpdate, options, axesEditor, updateVisBackground, resizeChart, classify) {
 
     var _typeHasChanged = false,
         _axesHaveChanged = false,
         _transposed = false,
         __thumbTimer,
         _optionsSynchronized = false,
-        __updateSizeTimer,
         chart = dw.backend.currentChart,
         visMetas = {},
         iframe = $('#iframe-vis'),
@@ -52,21 +52,7 @@ function(themes, checkChartHeight, updateSize, loadVisDfd, initTabNav, enableInl
         initTransposeLink();
         initVisSelector();
 
-        $('<div/>').addClass('dimensions').appendTo(iframeWrap);
-
-        iframeWrap.resizable({
-            minHeight: 300,
-            minWidth: 300,
-            handles: "e, s, se",
-            //helper: 'resize-helper'
-            start: function() {
-                iframeWrap.addClass('resizing');
-            },
-            stop: function() {
-                iframeWrap.removeClass('resizing');
-                updateSize(iframe.width(), iframe.height());
-            }
-        });
+        resizeChart.init(iframe);
     }
 
     function onChartSave(chart) {
@@ -294,7 +280,7 @@ function(themes, checkChartHeight, updateSize, loadVisDfd, initTabNav, enableInl
             if (theme.id == chart.get('theme')) {
                 var w = chart.get('metadata.publish.embed-width', theme.default_width || 560),
                     h = chart.get('metadata.publish.embed-height', theme.default_height || 400);
-                updateSize(w, h);
+                resizeChart.update(w, h);
                 return false;
             }
         });

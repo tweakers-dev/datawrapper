@@ -2,23 +2,25 @@
 define([
     './annotate/highlight',
     './annotate/numberformat',
-    './visualize/updateSize',
     './visualize/themes',
     './visualize/loadVisDeferred',
     './visualize/enableInlineEditing',
     './visualize/liveUpdate',
     './visualize/checkChartHeight',
     './visualize/updateVisBackground',
+    './visualize/resizeChart',
     // silent imports
     './visualize/colorpicker',
-    'selectize'
+    'selectize',
+    'jqueryui'
 ],
-function(initHighlightSeries, numberformat, updateSize, themes, loadVisDfd, enableInlineEditing, liveUpdate, checkChartHeight,
-    updateVisBackground) {
+function(initHighlightSeries, numberformat, themes, loadVisDfd, enableInlineEditing, liveUpdate, checkChartHeight,
+    updateVisBackground, resizeChart) {
 
     var chart = dw.backend.currentChart,
         visMetas = {},
         iframe = $('#iframe-vis'),
+        iframeWrap = iframe.parent(),
         visJSON,
         _themeHasChanged = false,
         __updateSizeTimer;
@@ -58,6 +60,8 @@ function(initHighlightSeries, numberformat, updateSize, themes, loadVisDfd, enab
         $('#select-theme').selectize({});
 
         numberformat.init();
+
+        resizeChart.init(iframe);
     }
 
     function iframeLoaded() {
@@ -115,7 +119,7 @@ function(initHighlightSeries, numberformat, updateSize, themes, loadVisDfd, enab
             var dim = $(e.target).html().split('×');
             $('#resize-w').val(dim[0]);
             $('#resize-h').val(dim[1]);
-            updateSize();
+            resizeChart.update();
         });
     }
 
@@ -141,7 +145,7 @@ function(initHighlightSeries, numberformat, updateSize, themes, loadVisDfd, enab
                 if (theme.id == chart.get('theme')) {
                     var w = theme.default_width || chart.get('metadata.publish.embed-width'),
                         h = theme.default_height || chart.get('metadata.publish.embed-height');
-                    updateSize(w, h);
+                    resizeChart.update(w, h);
                     return true;
                 }
             });
@@ -166,7 +170,7 @@ function(initHighlightSeries, numberformat, updateSize, themes, loadVisDfd, enab
             if (theme.id == chart.get('theme')) {
                 var w = chart.get('metadata.publish.embed-width', theme.default_width || 560),
                     h = chart.get('metadata.publish.embed-height', theme.default_height || 400);
-                updateSize(w, h);
+                resizeChart.update(w, h);
                 return false;
             }
         });
@@ -191,7 +195,7 @@ function(initHighlightSeries, numberformat, updateSize, themes, loadVisDfd, enab
     // chart resizing
     function _updateSize() {
         clearTimeout(__updateSizeTimer);
-        __updateSizeTimer = setTimeout(updateSize, 300);
+        __updateSizeTimer = setTimeout(resizeChart.update, 300);
     }
 
 
