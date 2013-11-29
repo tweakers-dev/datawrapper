@@ -688,52 +688,6 @@ dl.dl-horizontal dd {
   content: '';
 }
 
-#vis-options fieldset legend {
-    margin-bottom: 10px;
-}
-
-#vis-options .vis-option-group {
-    margin-bottom: 9px;
-    position: relative;
-}
-
-#vis-options .vis-option-group .vis-option-help {
-    position: absolute;
-    top: -3px;
-    right: 22px;
-    cursor: default;
-    padding-left: 15px;
-    z-index: 100;
-}
-
-#vis-options .vis-option-group.vis-option-type-radio-left .vis-option-help {
-    top: 32px;
-}
-
-#vis-options .vis-option-group.vis-option-type-separator .vis-option-help {
-    top: 32px;
-}
-
-#vis-options .vis-option-group.vis-option-type-select-axis-column .vis-option-help {
-    top: -2px;
-}
-
-#vis-options .vis-option-group .vis-option-help:hover {
-    text-decoration: none;
-}
-
-#vis-options .vis-option-group .vis-option-help span {
-    display: block;
-    width: 22px;
-    height: 22px;
-    line-height: 22px;
-    text-align: center;
-    border-radius: 11px;
-    background: #d6d6d6;
-    color: #fff;
-    font-weight: bold;
-}
-
 .tooltip {
     opacity: 1!important;
 }
@@ -748,24 +702,6 @@ dl.dl-horizontal dd {
     text-align: left;
 }
 
-#vis-options legend + .control-group {
-    margin-top: 0;
-}
-
-#vis-options .control-label {
-    width: 45%;
-}
-
-#vis-options .controls {
-    margin-left: 50%;
-}
-
-#vis-options .vis-option-type-select-axis-column .control-label {
-    width: 30%;
-}
-#vis-options .vis-option-type-select-axis-column .controls {
-    margin-left: 35%;
-}
 
 .highlighted-series li {
     margin-bottom: 3px;
@@ -785,10 +721,6 @@ dl.dl-horizontal dd {
     position: relative;
     left: -4px;
     top: 1px;
-}
-
-.dw-create-visualize .collapse {
-
 }
 
 .collapse-hidden:before {
@@ -1625,14 +1557,4 @@ html .context-menu-submenu:after {
 
 html .context-menu-submenu:hover:after {
     color: #fff;
-}
-
-.coachmark-popover {
-    background-color: #fcfccf;
-}
-.coachmark-popover.right .arrow:after {
-    border-right-color: #fcfccf;
-}
-.coachmark-popover.left .arrow:after {
-    border-left-color: #fcfccf;
 }
