@@ -139,9 +139,6 @@ function(themes, checkChartHeight, loadVisDfd, initTabNav, enableInlineEditing,
                     win.dw_alert = dw.backend.alert;
                     win.__dw.backend = dw.backend;
                 }
-                if (evt.data == 'datawrapper:vis:rendered') {
-                    enableInlineEditing($('#iframe-vis'), chart);
-                }
                 if (evt.data.slice(0, 7) == 'notify:') {
                     dw.backend.notify(evt.data.slice(7));
                 }
