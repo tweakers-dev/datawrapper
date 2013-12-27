@@ -1,0 +1,43 @@
+{# sidebar left #}
+
+<div class="span1 sidebar-left">
+
+    {# visualization #}
+    <label>{% trans "Visualization" %}:</label>
+    <div class="thumb-selector type">
+        <div class="thumb active">
+            {{ vis.icon | raw }}
+        </div>
+        <div class="thumb-menu hidden">
+            {% for v in visualizations %}
+                {% if v.title %}
+                <div class="thumb{% if v.id == vis.id %} active{% endif %}" data-key="{{ v.id }}">
+                    {{ v.icon | raw }}
+                    <div class="title"><span>{{ v.title }}</span></div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <label>{% trans "Layout" %}:</label>
+    <div class="thumb-selector theme">
+        <div class="thumb active theme-{{ theme.id }}">
+            <div class="vis-icon">{{ vis.icon | raw }}</div>
+            <div class="title"><span>{{ theme.title }}</span></div>
+        </div>
+        <div class="thumb-menu hidden">
+            {% for t in themes %}
+                {% if not t.hidden %}
+                <div class="thumb theme-{{ t.id }}{% if t.id == theme.id %} active{% endif %}" data-key="{{ t.id }}">
+                    <div class="vis-icon">{{ vis.icon | raw }}</div>
+                    <div class="title"><span>{{ t.title }}</span></div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+
+</div>
+

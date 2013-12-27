@@ -1,4 +1,126 @@
 
+.thumb-selector {
+    position: relative;
+    height: 100px;
+}
+
+.thumb-selector .thumb {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #fff;
+    background: #f8f8f8;
+    cursor: pointer;
+    position: relative;
+}
+
+
+.thumb-selector .thumb > * {
+    pointer-events: none;
+}
+
+
+.thumb-selector > .thumb:hover {
+    background: #fff;
+}
+
+.thumb-selector > .thumb .title {
+    display: none;
+}
+
+.thumb-selector .thumb svg {
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 70px;
+    height: 70px;
+}
+
+.thumb-selector .thumb-menu {
+    z-index: 100;
+    position: absolute;
+    width: 660px;
+    top: 0px;
+    left: 80px;
+    background: #f8f8f8;
+    padding: 10px 0 10px 10px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,.2);
+}
+
+.thumb-selector .thumb-menu .thumb {
+    display: inline-block;
+    margin: 0 5px 10px 0;
+    width: 120px;
+    height: 120px;
+    border: none;
+    background: #f8f8f8;
+}
+
+.thumb-selector .thumb-menu .thumb:hover,
+.thumb-selector .thumb-menu .thumb.active {
+    background: #fff;
+}
+
+.thumb-selector .thumb-menu .thumb svg {
+    width: 80px;
+    height: 80px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.thumb-selector .thumb-menu .thumb:hover svg { opacity: 1; }
+
+.thumb .title {
+    position: absolute;
+    bottom: 3px;
+    left: 5px;
+    right: 5px;
+    text-transform: uppercase;
+    font-size: 11px;
+    line-height: 26px;
+    text-align: center;
+    height: 26px;
+    color: #555;
+}
+
+.thumb-selector.theme .thumb .vis-icon {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    width: 80px;
+    height: 80px;
+}
+
+.thumb-selector.theme > .thumb {
+    border: 0;
+}
+
+.thumb-selector.theme > .thumb .vis-icon {
+    left: 0px;
+    top: 0px;
+}
+
+.thumb-selector.theme .thumb .vis-icon svg {
+    margin: 0;
+}
+
+.thumb-selector.theme > .thumb .vis-icon svg {
+    margin: 5px 0 0 5px;
+}
+
+.thumb-selector .thumb .title span {
+    display: inline-block;
+    vertical-align:middle;
+    line-height: 13px;
+}
+
+.thumb svg path, .thumb svg rect { fill: #bdcce0; }
+.thumb svg line { stroke: #bdcce0; }
+
+.thumb.active svg path, .thumb.active svg rect { fill: #4482cc; }
+.thumb.active svg line { stroke: #4482cc; }
+.thumb.active .title { font-weight: bold; color: #000; }
+
+
+
 .form-actions {
     clear: both;
     padding: 20px 0 0;
