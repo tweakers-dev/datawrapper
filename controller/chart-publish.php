@@ -29,7 +29,7 @@ $app->get('/chart/:id/publish', function ($id) use ($app) {
             'estExportTime' => ceil(JobQuery::create()->estimatedTime('export') / 60)
         );
         add_header_vars($page, 'chart', 'chart-editor/publish.css');
-        add_editor_nav($page, 4);
+        add_editor_nav($page, 5);
 
         if ($user->isAbleToPublish()
             && ($chart->getLastEditStep() == 3 || $app->request()->get('republish') == 1)) {
