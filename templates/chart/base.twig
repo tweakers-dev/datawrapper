@@ -73,6 +73,23 @@ dw.backend.ready(function() {
         }
     });
 
+    // update editor nav on hash change
+    $(window).on('hashchange', onHashChange);
+
+    onHashChange();
+
+    function onHashChange() {
+        if (location.hash) {
+            var id = location.pathname.split('/')[3] + location.hash;
+                $('.navbar-editor li a').each(function() {
+                if ($(this).attr('href') == id) {
+                    $('.navbar-editor li').removeClass('active');
+                    $(this).parents('li').addClass('active');
+                }
+            });
+        }
+    }
+
 });
 
 
