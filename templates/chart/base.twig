@@ -2,35 +2,36 @@
 
 {% block content %}
 
-<div id="msg-changes-saved" class="alert alert-info" style="text-align:center;position:fixed;top:-45px;z-index:9999;left: 30%;right:30%;opacity:0">
-  {% trans "Your changes have been saved." %}
-</div>
 
-<div class="row create-nav">
-    {% for step in steps %}
-        {% if createstep > step.index or createstep != step.index and chart.lastEditStep >= step.index %}
-            <a href="{{ step.id }}" class="submit span3{% if createstep == step.index %} active{% else %}{% if createstep > step.index %} passed{% endif %}{% endif %}">
-                <span class="step">{{ step.index }}</span>
-                <span class="title">{{ step.title }}</span>
-                <i class="icon-ok"></i>
-                 <div class="corner"></div>
-            </a>
-        {% elseif createstep == step.index-1 %}
-            <a href="{{ step.id }}" class="submit span3{% if createstep == step.index %} active{% else %}{% if createstep > step.index %} passed{% else %} unseen{% endif %}{% endif %}">
-                <span class="step">{{ step.index }}</span>
-                {{ step.title }}
-                <div class="corner"></div>
-            </a>
-        {% else %}
-            <div class="span3{% if createstep == step.index %} active{% else %}{% if createstep > step.index %} passed{% else %} unseen{% endif %}{% endif %}">
-                <span class="step">{{ step.index }}</span>
-                {{ step.title }}
-                <div class="corner"></div>
+    <div class="navbar navbar-editor navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container" style="position:relative">
+                 <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+
+                <a class="brand">
+                    {% trans "Chart Editor" %}
+                </a>
+
+                <div class="nav-collapse">
+                    <ul class="nav dw-header-nav">
+                        {% for step in steps %}
+                            <li class="{% if createstep == step.index %} active{% else %}{% if createstep > step.index %} passed{% endif %}{% endif %}{% if chart.lastEditStep < step.index-2 %} disabled{% endif %}">
+                                <a class="submit" href="{{ step.id }}" >
+                                    <span class="step">{{ step.index }}</span>
+                                    <span class="title">{{ step.title }}</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
-        {% endif %}
-
-    {% endfor %}
-</div>
+        </div>
+    </div>
+<div class="spacer-editor"></div>
 
 {% if user != chart.user and user.isAdmin() %}
 <div class="alert alert-danger" style="text-align:center">
