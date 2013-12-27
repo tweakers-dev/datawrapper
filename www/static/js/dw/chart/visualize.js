@@ -48,6 +48,9 @@ function(initHighlightSeries, visOptions, themes, checkChartHeight, loadVisDfd,
         initVisSelector();
         initResizeChart();
         initChartSize();
+
+        initThumbSelector('type');
+        initThumbSelector('theme');
     }
 
     function onChartSave(chart) {
@@ -314,6 +317,34 @@ function(initHighlightSeries, visOptions, themes, checkChartHeight, loadVisDfd,
         clearTimeout(__updateSizeTimer);
         __updateSizeTimer = setTimeout(updateSize, 300);
     }
+
+    function initThumbSelector(key) {
+        var sel = $('.thumb-selector.'+key),
+            menu = $('.thumb-menu', sel),
+            thumb = sel.children('.thumb');
+
+        thumb.click(toggleMenu);
+
+        $('.thumb', menu).click(function(evt) {
+            dw.backend.currentChart.set(key, $(evt.target).data('key'));
+            $('.thumb', menu).removeClass('active');
+            $(evt.target).addClass('active');
+            thumb.html($(evt.target).html());
+            menu.addClass('hidden');
+        });
+
+        function toggleMenu(e) {
+            e.stopPropagation();
+            menu.toggleClass('hidden');
+        }
+        $('body').click(function() {
+            menu.addClass('hidden');
+        });
+        menu.click(function(e) {
+            e.stopPropagation();
+        });
+    }
+
 
     return {
         init: init
