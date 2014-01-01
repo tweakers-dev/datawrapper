@@ -8,7 +8,7 @@
         <div class="thumb active">
             {{ vis.icon | raw }}
         </div>
-        <div class="thumb-menu hidden">
+        <div class="thumb-menu">
             {% for v in visualizations %}
                 {% if v.title %}
                 <div class="thumb{% if v.id == vis.id %} active{% endif %}" data-key="{{ v.id }}">
@@ -26,7 +26,7 @@
             <div class="vis-icon">{{ vis.icon | raw }}</div>
             <div class="title"><span>{{ theme.title }}</span></div>
         </div>
-        <div class="thumb-menu hidden">
+        <div class="thumb-menu">
             {% for t in themes %}
                 {% if not t.hidden %}
                 <div class="thumb theme-{{ t.id }}{% if t.id == theme.id %} active{% endif %}" data-key="{{ t.id }}">
