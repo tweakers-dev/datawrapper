@@ -31,14 +31,19 @@ html .navbar.navbar-editor .brand {
 html .navbar.navbar-editor .navbar-inner { min-height: 48px; }
 html .navbar.navbar-editor .brand { padding-top: 13px; }
 html .navbar.navbar-editor .nav > li > a { color: #09c; padding-top: 10px; padding-bottom: 11px; }
+html .navbar.navbar-editor .nav > li > a:hover { background: #f9f9f9; }
+html .navbar.navbar-editor .nav > li > a:hover * { color: #000; }
 html .navbar.navbar-editor .nav > li.passed > a { color: #69c; }
 html .navbar.navbar-editor .nav > li.disabled > a { color: #999; }
 html .navbar.navbar-editor .nav > li.active > a { background: #fff; padding-bottom: 10px; }
 html .navbar.navbar-editor .nav > li.active > a .title { border-bottom: 2px solid #469; color: #000; }
 html .navbar.navbar-editor .nav > li.active > a .step { color: #000; }
+html .navbar.navbar-editor .nav > li.active > a:hover { background: #eee }
 html .navbar-editor li a:hover { color: #000; }
 html .navbar-editor li.passed a { color: #999; }
 html .navbar-editor li.disabled { pointer-events: none; }
+
+
 
 html .navbar-editor .step {
     font-weight: bold;
