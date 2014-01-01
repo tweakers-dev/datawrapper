@@ -4,27 +4,29 @@
 
     <div class="tab-container">
 
+        {# visualization specific options #}
 
+        <div class="section refine">
 
+            <h3>{% trans "Refine the chart" %}</h3>
 
-                <p>
-                    <b>{% trans "Hint" %}:</b> {% trans "In case the visualization doesn't look like you expected, you should try to <a href='#' id='btn-transpose'><img src='/static/css/chart-editor/transpose.png' /> transpose the data</a>." %}
-                </p>
+            <div id="vis-options" class="form-horizontal">
 
+                {% include 'chart/visualize/options.twig' %}
 
-            <div style="margin-top:20px;">
-                <label class="pull-left" style="padding-right:1ex;line-height:28px" for="select-theme">{% trans "Select layout:" %}</label>
-                <select id="select-theme" class="span2">
-                    {% for theme in themes %}{% if not theme.hidden %}
-                    <option value="{{ theme.id }}">{{ theme.title }}</option>
-                    {% endif %}{% endfor %}
-                </select>
             </div>
 
-         </div>
+            <div class="form-actions">
+                <a class="btn submit btn-stepback" href="describe">
+                    <i class="icon-chevron-left"></i> {% trans "Back" %}
+                </a>
+                <a href="#annotate" class="pull-right btn btn-primary proceed-btn">
+                    {% trans "Annotate" %} <i class="icon-chevron-right icon-white"></i>
+                </a>
+            </div>
+        </div>
 
-        <div class="section tell-the-story">
-            {# <h3>{% trans "Tell the story" %}</h3> #}
+        <div class="section annotate">
 
             <div class="story">
                 <div class="story-title control-group">
@@ -57,24 +59,16 @@
 
             </div>
 
-
-        </div>
-
-        {# visualization specific options #}
-
-        <div class="section refine-the-chart">
-            {# <h3>{% trans "Refine the chart" %}</h3> #}
-
-            <div id="vis-options" class="form-horizontal">
-
-                {% include 'chart/visualize/options.twig' %}
-
+            <div class="form-actions">
+                <a class="btn submit btn-stepback" href="#refine">
+                    <i class="icon-chevron-left"></i> {% trans "Back" %}
+                </a>
+                <a href="publish" class="submit pull-right btn btn-primary btn-lrge publish-btn" id="visualize-proceed">{% trans "Publish" %} <i class="icon-chevron-right icon-white"></i></a>
             </div>
         </div>
+
     </div>
 
-    <a href="#proceed" class="pull-right btn btn-primary proceed-btn">{% trans "Proceed" %} <i class="icon-chevron-right icon-white"></i></a>
-    <a href="publish" class="submit pull-right btn btn-primary btn-lrge publish-btn" id="visualize-proceed">{% trans "Publish" %} <i class="icon-chevron-right icon-white"></i></a>
 
     {% if debug %}
 
@@ -120,9 +114,6 @@
     </script>
 
     {% endif %}
-
-    <a class="btn submit btn-stepback" href="describe"><i class="icon-chevron-left"></i> {% trans "Back" %}</a>
-    <a class="btn btn-tabback" href="#"><i class="icon-chevron-left"></i> {% trans "Back" %}</a>
 
     <div class="clearfix"></div>
 </div>
