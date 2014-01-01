@@ -258,15 +258,6 @@ body .navbar-inverse .nav li.dropdown.active > .dropdown-toggle:hover
     background: #ddd;
 }
 
-.navbar-editor .step {
-    font-weight: bold;
-    font-size: 16px;
-    position: relative;
-    top: 1px;
-    height: 15px;
-    margin-right: 5px;
-}
-
 .dw-logo {
     font-weight: 500;
     color: #0063A5;

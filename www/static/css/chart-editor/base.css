@@ -8,18 +8,18 @@ html.chart body {
 
 /** second navbar for chart editor **/
 
-html .navbar-editor {
+html .navbar.navbar-editor {
     top: 50px;
     z-index: 1029;
 }
 
-html .navbar-editor .navbar-inner {
+html .navbar.navbar-editor .navbar-inner {
     background: #fff;
     height: 40px;
     border-bottom: 1px solid #ddd;
 }
 
-html .navbar-editor .brand {
+html .navbar.navbar-editor .brand {
     font-size: 16px;
     color: #333;
 }
@@ -40,13 +40,11 @@ html .navbar-editor li a:hover { color: #000; }
 html .navbar-editor li.passed a { color: #999; }
 html .navbar-editor li.disabled { pointer-events: none; }
 
-/** modified span widths in visualize step **/
-
-html.chart .span1.sidebar-left {
-    width: 80px;
+html .navbar-editor .step {
+    font-weight: bold;
+    font-size: 16px;
+    position: relative;
+    top: 1px;
+    height: 15px;
+    margin-right: 5px;
 }
-
-html.chart .span7.visualize {
-    width: 660px;
-}
-
