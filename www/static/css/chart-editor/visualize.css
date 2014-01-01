@@ -1,4 +1,16 @@
 
+/** modified span widths in visualize step **/
+
+html.chart .span1.sidebar-left {
+    width: 80px;
+}
+
+html.chart .span7 {
+    width: 660px;
+}
+
+/** thumbnail selector for visualization and theme **/
+
 .thumb-selector {
     position: relative;
     height: 100px;
