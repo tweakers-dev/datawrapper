@@ -330,15 +330,15 @@ function(initHighlightSeries, visOptions, themes, checkChartHeight, loadVisDfd,
             $('.thumb', menu).removeClass('active');
             $(evt.target).addClass('active');
             thumb.html($(evt.target).html());
-            menu.addClass('hidden');
+            sel.removeClass('focus');
         });
 
         function toggleMenu(e) {
             e.stopPropagation();
-            menu.toggleClass('hidden');
+            sel.toggleClass('focus');
         }
         $('body').click(function() {
-            menu.addClass('hidden');
+            sel.removeClass('focus');
         });
         menu.click(function(e) {
             e.stopPropagation();
