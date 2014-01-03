@@ -79,33 +79,9 @@ dw.backend.ready(function() {
         interpolate : /\{\{(.+?)\}\}/g
     };
 
-    $('.chart-editor').on('click', '.submit', function(e) {
-        var a = $(e.target);
-        if (e.target.nodeName.toLowerCase() != 'a') a = a.parents('a');
-        if (chart.hasUnsavedChanges()) {
-            e.preventDefault();
-            chart.onSave(function() {
-                location.href = a.attr('href');
-            });
-        }
+    require(['dw/chart/base'], function(base) {
+        base.init();
     });
-
-    // update editor nav on hash change
-    $(window).on('hashchange', onHashChange);
-
-    onHashChange();
-
-    function onHashChange() {
-        if (location.hash) {
-            var id = location.pathname.split('/')[3] + location.hash;
-                $('.navbar-editor li a').each(function() {
-                if ($(this).attr('href') == id) {
-                    $('.navbar-editor li').removeClass('active');
-                    $(this).parents('li').addClass('active');
-                }
-            });
-        }
-    }
 
 });
 
