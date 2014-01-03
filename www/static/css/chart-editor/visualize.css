@@ -294,13 +294,6 @@ html.chart .span7 {
     margin-top: 0;
 }
 
-#vis-options .control-label {
-    width: 45%;
-}
-
-#vis-options .controls {
-    margin-left: 50%;
-}
 
 #vis-options .vis-option-type-select-axis-column .control-label {
     width: 30%;
