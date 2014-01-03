@@ -69,6 +69,10 @@ define(function() {
             });
             $('.vis-icon path, .vis-icon rect, .vis-icon circle', t).css('fill', th.colors.palette[0]);
             $('.vis-icon line', t).css('stroke', th.colors.palette[0]);
+            $('.vis-colors .color1', t).css('background', th.colors.palette[0]);
+            $('.vis-colors .color2', t).css('background', th.colors.palette[1]);
+            $('.vis-colors .color3', t).css('background', th.colors.palette[2]);
+            $('.vis-colors .color4', t).css('background', th.colors.palette[3]);
         });
     }
 

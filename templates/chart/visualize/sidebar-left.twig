@@ -25,6 +25,12 @@
         <div class="thumb active theme-{{ theme.id }}">
             <div class="vis-icon">{{ vis.icon | raw }}</div>
             <div class="title"><span>{{ theme.title }}</span></div>
+            <div class="vis-colors">
+                <div class="color1"></div>
+                <div class="color2"></div>
+                <div class="color3"></div>
+                <div class="color4"></div>
+            </div>
         </div>
         <div class="thumb-menu">
             {% for t in themes %}
@@ -32,6 +38,12 @@
                 <div class="thumb theme-{{ t.id }}{% if t.id == theme.id %} active{% endif %}" data-key="{{ t.id }}">
                     <div class="vis-icon">{{ vis.icon | raw }}</div>
                     <div class="title"><span>{{ t.title }}</span></div>
+                    <div class="vis-colors">
+                        <div class="color1"></div>
+                        <div class="color2"></div>
+                        <div class="color3"></div>
+                        <div class="color4"></div>
+                    </div>
                 </div>
                 {% endif %}
             {% endfor %}
