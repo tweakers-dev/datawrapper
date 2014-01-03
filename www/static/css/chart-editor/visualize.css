@@ -180,18 +180,25 @@ html.chart .span7 {
     color: #000;
 }
 
-.thumb svg path, .thumb svg rect { fill: #C2E0EE; }
-.thumb svg line { stroke: #C2E0EE; }
+.thumb svg path,
+.thumb svg rect,
+.thumb svg circle { fill: #ccc; }
+.thumb svg line { stroke: #ccc; }
 
-.thumb:hover svg path, .thumb:hover svg rect { fill: #08c; }
+.thumb:hover svg path,
+.thumb:hover svg rect,
+.thumb:hover svg circle { fill: #08c; }
 .thumb:hover svg line { stroke: #08c; }
 
-.thumb.active svg path, .thumb.active svg rect { fill: #000; }
+.thumb.active svg path,
+.thumb.active svg rect,
+.thumb.active svg circle { fill: #000; }
 .thumb.active svg line { stroke: #000; }
 
 .thumb-selector > .thumb.active svg path,
-.thumb-selector > .thumb.active svg rect { fill: #08c; }
-.thumb-selector > .thumb.active svg line { stroke: #08c; }
+.thumb-selector > .thumb.active svg rect,
+.thumb-selector > .thumb.active svg circle { fill: #000; }
+.thumb-selector > .thumb.active svg line { stroke: #000; }
 
 
 .thumb.active .title span { font-weight: bold; color: #000; }
