@@ -10,7 +10,8 @@ $app->get('/chart/:id/edit', function($chartid) use ($app) {
             case 0:
             case 1: $step = 'upload'; break;
             case 2: $step = 'describe'; break;
-            default: $step = 'visualize#tell-the-story';
+            case 3: $step = 'visualize#refine'; break;
+            default: $step = 'visualize#annotate';
         }
         $app->redirect('/chart/'.$chart->getId() . '/' . $step);
     });
