@@ -203,22 +203,23 @@ html.chart .span7 {
 
 .thumb-selector.theme .thumb .vis-colors {
     position: absolute;
-    right: 25px;
-    top: 15px;
-    padding-left: 4px;
+    left: 25px;
+    bottom: 30px;
+    padding-top: 2px;
     padding-bottom: 2px;
+    width: 70px;
+    text-align: center;
 }
 
 .thumb-selector.theme > .thumb .vis-colors {
-    right: 5px;
-    top: 5px;
+    left: 5px;
+    bottom: 0px;
 }
 
 .thumb-selector.theme .thumb .vis-colors > div {
-    width: 10px;
-    height: 10px;
-    border-radius: 1px;
-    margin-bottom: 2px;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
 }
 
 
