@@ -28,6 +28,17 @@ html .navbar.navbar-editor .brand {
     height: 50px;
 }
 
+.well {
+    background: #ddd;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+}
+
+.well h3 {
+    margin-top: 0;
+}
+
 html .navbar.navbar-editor .navbar-inner { min-height: 48px; }
 html .navbar.navbar-editor .brand { padding-top: 13px; }
 html .navbar.navbar-editor .nav > li > a { color: #09c; padding-top: 10px; padding-bottom: 11px; }
@@ -42,8 +53,6 @@ html .navbar.navbar-editor .nav > li.active > a:hover { background: #eee }
 html .navbar-editor li a:hover { color: #000; }
 html .navbar-editor li.passed a { color: #999; }
 html .navbar-editor li.disabled { pointer-events: none; }
-
-
 
 html .navbar-editor .step {
     font-weight: bold;
