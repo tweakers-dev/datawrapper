@@ -168,50 +168,6 @@ body .navbar .nav li.dropdown.active > .dropdown-toggle:hover
     width: 90%;
 }
 
-.dw .create-nav > * {
-    background: #f2f2f2;
-    position: relative;
-    box-shadow: 2px 2px 2px #e2e2e2 inset;
-    border-radius: 10px 0 0 10px;
-    text-align: left;
-    height: 50px;
-    font-size: 16px;
-    line-height: 50px;
-    font-weight: 300;
-    margin-bottom: 2em;
-    white-space: nowrap;
-}
-
-.dw .create-nav .corner {
-    background: url(../img/create-nav-bg.png) left center no-repeat;
-    width: 25px;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-radius: 0;
-    box-shadow: none;
-}
-
-.dw .create-nav > div.active {
-    background: #cc0000;
-    box-shadow: none;
-    font-weight: normal;
-    color: #fff;
-}
-
-.dw .create-nav > div.unseen {
-    color: #999;
-}
-
-.dw .create-nav > a:hover {
-    text-decoration: none;
-}
-
-.dw .create-nav > a.passed {
-    background: #ddd;
-}
-
 .dw-logo {
     font-weight: 500;
     color: #0063A5;
@@ -532,11 +488,6 @@ dl.dl-horizontal dd {
         white-space: nowrap;
     }
 
-    .dw .create-nav div {
-        font-size: 14px;
-        line-height: 42px;
-        height: 42px;
-    }
 }
 
 
