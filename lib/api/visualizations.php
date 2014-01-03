@@ -17,7 +17,7 @@ $app->get('/visualizations', function() {
         $res = $_SESSION['dw-visualizations'];
     } else {
         // read from file system
-        $res = DatawrapperVisualization::all();
+        $res = DatawrapperVisualization::all('dependencies');
         // store in cache
         $_SESSION['dw-visualizations'] = $res;
     }
