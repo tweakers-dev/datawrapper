@@ -1,6 +1,10 @@
 CHANGELOG
 ---------
 
+### 1.8.0
+* chart editor redesign
+* simplified creation of new visualizations
+
 ### 1.7.0
 * storing reference to source chart on forking/duplicating
 * data attributes in header nav
