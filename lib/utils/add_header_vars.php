@@ -155,7 +155,6 @@ function add_header_vars(&$page, $active = null, $page_css = null) {
     $page['config'] = $config;
     $page['html_class'] = $active;
     $page['page_css'] = is_array($page_css) ? $page_css : array($page_css);
-    $page['invert_navbar'] = isset($config['invert_header']) && $config['invert_header'] || substr($config['domain'], -4) == '.pro';
     $page['noSignup'] = $config['prevent_guest_access'];
     $page['footer'] = DatawrapperHooks::execute(DatawrapperHooks::GET_FOOTER);
 
