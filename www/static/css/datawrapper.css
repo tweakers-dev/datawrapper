@@ -18,6 +18,40 @@ body {
     color: #444;
     margin-top: 60px;
     position: relative;
+    margin-top: 0;
+    padding-top: 70px;
+}
+
+/*
+ * navbar styles
+ */
+
+body .navbar .nav .active > a,
+body .navbar .nav .active > a:hover,
+body .navbar .nav li.dropdown.active > .dropdown-toggle:hover
+ {
+    background: transparent;
+    font-weight: bold;
+}
+
+
+.navbar .nav li.dropdown .dropdown-toggle .caret, .navbar .nav li.dropdown.open .caret,
+.nav li.dropdown.open .caret, .nav li.dropdown.open.active .caret, .nav li.dropdown.open a:hover .caret {
+    border-bottom-color: #000;
+    border-top-color: #000;
+}
+
+
+html .navbar-fixed-top {
+    position: absolute;
+}
+
+html .navbar .navbar-inner {
+  background: #222;
+  border-color: #252525;
+  filter: none;
+  box-shadow: none;
+  min-height: 51px;
 }
 
 html .navbar li {
@@ -25,9 +59,108 @@ html .navbar li {
 }
 
 html .navbar .nav > li > a {
-  padding-top: 13px;
-  padding-bottom: 12px;
+    padding-top: 13px;
+    padding-bottom: 12px;
+    text-shadow: none;
+    color: #aaa;
 }
+
+html .navbar .nav > li > a:hover {
+    color: #fff;
+}
+
+html .navbar .nav li a [class^="icon-"],
+html .navbar .nav li a [class*=" icon-"] {
+    background-image: url("/static/vendor/bootstrap/img/glyphicons-halflings-white.png");
+    opacity: 0.9;
+}
+
+html .navbar .nav .active a [class^="icon-"],
+html .navbar .nav .active a [class*=" icon-"] {
+    opacity: 1;
+}
+
+/* brand */
+
+html .navbar .brand {
+    color: #fff;
+    padding-top: 14px;
+    padding-bottom: 4px;
+    white-space: nowrap;
+    text-shadow: none;
+}
+
+html .navbar .brand img {
+    float: left;
+    margin-right: 7px;
+    margin-left: 4px;
+    height: 32px;
+    position:relative;
+    top:-4px;
+}
+
+html .navbar .brand .beta {
+    font-size:10px;
+    font-weight:400;
+    position:relative;
+    top:-8px;
+    left:3px;
+    color:#aaa;
+}
+
+
+html .navbar .nav li.dropdown .dropdown-toggle .caret,
+html .navbar .nav li.dropdown.open .caret,
+html .nav li.dropdown.open .caret,
+html .nav li.dropdown.open.active .caret,
+html .nav li.dropdown.open a:hover .caret {
+    border-bottom-color: #ccc;
+    border-top-color: #ccc;
+}
+
+html body .navbar .nav .active > a,
+html body .navbar .nav .active > a:hover,
+html body .navbar .nav li.dropdown.active > .dropdown-toggle:hover
+ {
+    background: #111111;
+    font-weight: bold;
+    color: #fff!important;
+}
+
+html .navbar .nav li.dropdown.open>.dropdown-toggle,
+.navbar .nav li.dropdown.active>.dropdown-toggle,
+.navbar .nav li.dropdown.open.active>.dropdown-toggle {
+    background: #000;
+}
+
+.navbar .mycharts.dropdown li img.icon {
+    height: 20px!important;
+    width: 30px!important;
+    position: absolute;
+    left: 10px;
+    top: 4px;
+}
+
+.navbar .mycharts.dropdown li {
+    position: relative;
+    max-width: 240px;
+}
+.navbar .mycharts.dropdown li a {
+    padding-left: 45px;
+}
+.navbar .mycharts.dropdown li a span {
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/*
+ * navbar end
+ */
+
 
 html h2 {
     font-size: 24px;
@@ -67,88 +200,6 @@ html h3 {
         font-size: 21px;
     }
 
-}
-
-.navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
-    background-image: url(../img/bg-navbar.png);
-    background-color: #eee;
-    min-height: 51px;
-}
-
-.navbar .brand {
-    padding-top: 14px;
-    padding-bottom: 4px;
-    color: #556;
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, .55);
-    white-space: nowrap;
-}
-
-.navbar .brand img {
-    float: left;
-    margin-right: 7px;
-    margin-left: 4px;
-    height: 32px;
-    position:relative;
-    top:-4px;
-}
-
-.navbar .brand .beta {
-    font-size:10px;
-    font-weight:400;
-    position:relative;
-    top:-8px;
-    left:3px;
-    color:#aaa;
-}
-
-
-.navbar .nav > li > a {
-    padding-top: 15px;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45)
-}
-
-.navbar .nav > li > a:hover {
-    color: #000;
-}
-
-body .navbar .nav .active > a,
-body .navbar .nav .active > a:hover,
-body .navbar .nav li.dropdown.active > .dropdown-toggle:hover
- {
-    background: transparent;
-    font-weight: bold;
-    color: #444!important;
-}
-
-.navbar .mycharts.dropdown li {
-
-}
-.navbar .mycharts.dropdown li img.icon {
-    height: 20px!important;
-    width: 30px!important;
-    position: absolute;
-    left: 10px;
-    top: 4px;
-}
-.navbar .mycharts.dropdown li {
-    position: relative;
-    max-width: 240px;
-}
-.navbar .mycharts.dropdown li a {
-    padding-left: 45px;
-}
-.navbar .mycharts.dropdown li a span {
-    overflow: hidden;
-    display: block;
-    width: 100%;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.navbar .nav li.dropdown .dropdown-toggle .caret, .navbar .nav li.dropdown.open .caret,
-.nav li.dropdown.open .caret, .nav li.dropdown.open.active .caret, .nav li.dropdown.open a:hover .caret {
-    border-bottom-color: #000;
-    border-top-color: #000;
 }
 
 .dw .toplinks {
@@ -1314,6 +1365,12 @@ label.separator {
 
 html .gallery .thumbnail img {
     border-radius: 0;
+    box-shadow: none;
+    border: 1px solid #ddd;
+}
+
+html .gallery .thumbnail:hover img {
+    box-shadow: 0px 1px 10px rgba(40, 0, 0, 0.2);
 }
 
 html #alertModal,
