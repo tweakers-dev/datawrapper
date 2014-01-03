@@ -24,7 +24,7 @@ $app->get('/chart/:id/visualize', function ($id) use ($app) {
             'chart-editor/base.css',
             'chart-editor/visualize.css'
         ));
-        add_editor_nav($page, 3);
+        add_editor_nav($page, 3, $chart);
 
         $app->render('chart/visualize.twig', $page);
     });

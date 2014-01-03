@@ -13,7 +13,7 @@ $app->get('/chart/:id/upload', function ($id) use ($app) {
             'datasets' => DatawrapperHooks::execute(DatawrapperHooks::GET_DEMO_DATASETS)
         );
         add_header_vars($page, 'chart', 'chart-editor/base.css');
-        add_editor_nav($page, 1);
+        add_editor_nav($page, 1, $chart);
         $res = $app->response();
         $res['Cache-Control'] = 'max-age=0';
         $app->render('chart/upload.twig', $page);

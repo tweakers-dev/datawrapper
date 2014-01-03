@@ -1,6 +1,6 @@
 <?php
 
-function add_editor_nav(&$page, $step) {
+function add_editor_nav(&$page, $step, $chart) {
     // define 4 step navigation
     $steps = array();
     $steps[] = array('index'=>1, 'id'=>'upload', 'title'=>__('Upload Data'));

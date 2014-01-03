@@ -32,7 +32,7 @@ $app->get('/chart/:id/publish', function ($id) use ($app) {
             'chart-editor/base.css',
             'chart-editor/publish.css'
         ));
-        add_editor_nav($page, 5);
+        add_editor_nav($page, 5, $chart);
 
         if ($user->isAbleToPublish()
             && ($chart->getLastEditStep() == 3 || $app->request()->get('republish') == 1)) {
