@@ -330,6 +330,10 @@ function(initHighlightSeries, visOptions, themes, checkChartHeight, loadVisDfd,
             $('.thumb', menu).removeClass('active');
             $(evt.target).addClass('active');
             thumb.html($(evt.target).html());
+            if (key == 'type') {
+                $('.thumb-selector.theme .thumb .vis-icon').html($('.vis-icon', evt.target).html());
+                themes.initPreviews();
+            }
             sel.removeClass('focus');
         });
 

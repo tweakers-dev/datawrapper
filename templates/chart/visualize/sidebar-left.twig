@@ -6,13 +6,13 @@
     <label>{% trans "Chart type" %}:</label>
     <div class="thumb-selector type">
         <div class="thumb active">
-            {{ vis.icon | raw }}
+            <div class="vis-icon">{{ vis.icon | raw }}</div>
         </div>
         <div class="thumb-menu">
             {% for v in visualizations %}
                 {% if v.title %}
                 <div class="thumb{% if v.id == vis.id %} active{% endif %}" data-key="{{ v.id }}">
-                    {{ v.icon | raw }}
+                    <div class="vis-icon">{{ v.icon | raw }}</div>
                     <div class="title"><span>{{ v.title }}</span></div>
                 </div>
                 {% endif %}
