@@ -1,0 +1,86 @@
+/*
+ * base styles for chart editor
+ */
+
+html.chart body {
+    background: #f1f1f1;
+}
+
+/** second navbar for chart editor **/
+
+html .navbar.navbar-editor {
+    top: 50px;
+    z-index: 1029;
+}
+
+html .navbar.navbar-editor .navbar-inner {
+    background: #fff;
+    height: 40px;
+    border-bottom: 1px solid #ddd;
+}
+
+html .navbar.navbar-editor .brand {
+    font-size: 16px;
+}
+
+.spacer-editor {
+    height: 50px;
+}
+
+.well {
+    background: #ddd;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+}
+
+.well h3 {
+    margin-top: 0;
+}
+
+html .navbar.navbar-editor .navbar-inner { min-height: 48px; }
+html .navbar.navbar-editor .brand { padding-top: 13px; }
+html .navbar.navbar-editor .nav > li > a { color: #09c; padding-top: 10px; padding-bottom: 11px; }
+html .navbar.navbar-editor .nav > li > a:hover { background: #f9f9f9; }
+html .navbar.navbar-editor .nav > li > a:hover * { color: #000; }
+html .navbar.navbar-editor .nav > li.passed > a { color: #69c; }
+html .navbar.navbar-editor .nav > li.disabled > a { color: #999; }
+html .navbar.navbar-editor .nav > li.active > a { background: #fff; padding-bottom: 10px; }
+html .navbar.navbar-editor .nav > li.active > a .title { border-bottom: 2px solid #469; color: #000; }
+html .navbar.navbar-editor .nav > li.active > a .step { color: #000; }
+html .navbar.navbar-editor .nav > li.active > a:hover { background: #eee }
+html .navbar-editor li a:hover { color: #000; }
+html .navbar-editor li.passed a { color: #999; }
+html .navbar-editor li.disabled { pointer-events: none; }
+
+html .navbar-editor .step {
+    font-weight: bold;
+    font-size: 16px;
+    position: relative;
+    top: 1px;
+    height: 15px;
+    margin-right: 5px;
+}
+
+
+/*
+ * visualization styles
+ */
+
+#iframe-wrapper {
+    box-shadow: 1px 1px 0px #ddd,-1px -1px 0px #ddd,1px -1px 0px #ddd,-1px 1px 0px #ddd;
+    border: 1px solid #fff;
+    padding: 10px;
+    overflow: hidden;
+    background: #fff;
+    max-width: 98%;
+}
+
+#iframe-vis {
+    border: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+

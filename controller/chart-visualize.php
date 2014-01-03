@@ -20,8 +20,11 @@ $app->get('/chart/:id/visualize', function ($id) use ($app) {
             'theme' => DatawrapperTheme::get($chart->getTheme()),
             'debug' => !empty($GLOBALS['dw_config']['debug_export_test_cases']) ? '1' : '0'
         );
-        add_header_vars($page, 'chart');
-        add_editor_nav($page, 3);
+        add_header_vars($page, 'chart', array(
+            'chart-editor/base.css',
+            'chart-editor/visualize.css'
+        ));
+        add_editor_nav($page, 3, $chart);
 
         $app->render('chart/visualize.twig', $page);
     });

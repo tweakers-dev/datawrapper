@@ -89,7 +89,8 @@
             dw.datasource.delimited({ csv: data }).dataset().done(function(ds) {
 
                 chart.dataset(ds)
-                    .locale('en-US', {"3":"k","6":"m","9":"b","12":"t"})
+                    .locale('en-US')
+                    .metricPrefix({"3":"k","6":"m","9":"b","12":"t"})
                     .theme(theme)
                     .vis(vis);
 

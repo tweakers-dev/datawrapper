@@ -19,6 +19,15 @@ dw.backend.ready(function() {
             <p class="lead" style="margin-top:0">{% trans "Link to this visualisation" %}</p>
             <p><a href="{{ chartUrl }}">{{ chartUrl }}</a></p>
 
+            {% if not publish %}
+                {% if chart.publishedAt < chart.lastModifiedAt %}
+                    <div class="alert alert-warning">
+                        <p>{% trans "You have changed the chart after its last publication. To make the changes visible, please re-publish the chart." %}</p>
+                        <a href="?republish=1" class="btn"><i class="icon-refresh"></i> {% trans "Re-publish chart!" %}</a>
+                    </div>
+                {% endif %}
+            {% endif %}
+
             {% if republish %}
 
             <div id="chart-url-change-warning" class="alert alert-warning" style="display:none">
@@ -26,7 +35,7 @@ dw.backend.ready(function() {
                 <div style="font-size:45px;line-height:55px;margin-left:-7px" class="pull-left">☝</div>
                 <div style="margin-left: 40px">
                     <h4>{% trans "Chart URL has changed!" %}</h4>
-                    <div>{% trans "The chart URL has changed due to the republication. The old versions will be redirected automatically within the next 24 hours." %}</div>
+                    <div>{% trans "The chart URL has changed due to the republication." %} {% trans "It may take up to 24 hours until the re-direction from old chart urls to the newest version takes effect." %}</div>
                 </div>
             </div>
 
@@ -38,7 +47,7 @@ dw.backend.ready(function() {
                 <label>{% trans "Width" %}: <input type="text" id="embed-width" class="input-small" style="width:4ex" value="600" /> px</label>&nbsp;&nbsp;
                 <label>{% trans "Height" %}: <input type="text" id="embed-height" class="input-small" style="width:4ex" value="400" /> px</label>
 
-            <textarea style="font-size: 13px;padding:5px" id="iframe-code" class="well span4" rows="5"><iframe src="{{ chartUrl }}" frameborder="0" allowtransparency="true" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen" mozallowfullscreen="mozallowfullscreen" oallowfullscreen="oallowfullscreen" msallowfullscreen="msallowfullscreen" width="{{ chart.metadata.publish['embed-width'] }}" height="{{ chart.metadata.publish['embed-height'] }}"></iframe></textarea>
+            <textarea id="iframe-code" class="span4" rows="5"><iframe src="{{ chartUrl }}" frameborder="0" allowtransparency="true" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen" mozallowfullscreen="mozallowfullscreen" oallowfullscreen="oallowfullscreen" msallowfullscreen="msallowfullscreen" width="{{ chart.metadata.publish['embed-width'] }}" height="{{ chart.metadata.publish['embed-height'] }}"></iframe></textarea>
 
 
             <p class="lead">{%trans "Other things to do" %}</p>
@@ -132,12 +141,7 @@ dw.backend.ready(function() {
                     </p>
                 </div>
             {% else %}
-                {% if chart.publishedAt < chart.lastModifiedAt %}
-                    <div class="alert alert-warning">
-                        <p>{% trans "You have changed the chart after its last publication. To make you changes visible, please re-publish the chart." %}</p>
-                        <a href="?republish=1" class="btn"><i class="icon-refresh"></i> {% trans "Re-publish chart!" %}</a>
-                    </div>
-                {% endif %}
+                
             {% endif %}
 
             {% if chart.lastEditStep == 5 %}
@@ -145,8 +149,6 @@ dw.backend.ready(function() {
             {% endif %}
 
             <iframe src="{% if publish %}{{ chartUrlLocal }}{% else %}{{ chartUrl }}{% endif %}" id="iframe-vis" style="width:{{ chart.metadata.publish['embed-width'] }}px;height:{{ chart.metadata.publish['embed-height'] }}px" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-
-            <div style="color: #999;margin-top:20px"><b>{% trans "Note" %}:</b> {% trans "It may take a couple of minutes until the re-direction from old chart urls to the newest version takes effect." %}</div>
 
             {% else %}
 

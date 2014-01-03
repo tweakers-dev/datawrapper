@@ -207,9 +207,10 @@ _.extend(dw.visualization.base, {
 
     keys: function() {
         var me = this,
-            axesDef = me.axes();
-        if (axesDef.labels) {
-            var lblCol = me.dataset.column(axesDef.labels),
+            axesDef = me.axes(),
+            highlightKey = me.meta['highlight-key'] || 'labels';
+        if (axesDef[highlightKey]) {
+            var lblCol = me.dataset.column(axesDef[highlightKey]),
                 fmt = me.chart().columnFormatter(lblCol),
                 keys = [];
             lblCol.each(function(val) {

@@ -1,0 +1,55 @@
+{# sidebar left #}
+
+<div class="span1 sidebar-left">
+
+    {# visualization #}
+    <label>{% trans "Chart type" %}:</label>
+    <div class="thumb-selector type">
+        <div class="thumb active">
+            <div class="vis-icon">{{ vis.icon | raw }}</div>
+        </div>
+        <div class="thumb-menu">
+            {% for v in visualizations %}
+                {% if v.title %}
+                <div class="thumb{% if v.id == vis.id %} active{% endif %}" data-key="{{ v.id }}">
+                    <div class="vis-icon">{{ v.icon | raw }}</div>
+                    <div class="title"><span>{{ v.title }}</span></div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <label>{% trans "Layout" %}:</label>
+    <div class="thumb-selector theme">
+        <div class="thumb active theme-{{ theme.id }}">
+            <div class="vis-icon">{{ vis.icon | raw }}</div>
+            <div class="title"><span>{{ theme.title }}</span></div>
+            <div class="vis-colors">
+                <div class="color1"></div>
+                <div class="color2"></div>
+                <div class="color3"></div>
+                <div class="color4"></div>
+            </div>
+        </div>
+        <div class="thumb-menu">
+            {% for t in themes %}
+                {% if not t.hidden %}
+                <div class="thumb theme-{{ t.id }}{% if t.id == theme.id %} active{% endif %}" data-key="{{ t.id }}">
+                    <div class="vis-icon">{{ vis.icon | raw }}</div>
+                    <div class="title"><span>{{ t.title }}</span></div>
+                    <div class="vis-colors">
+                        <div class="color1"></div>
+                        <div class="color2"></div>
+                        <div class="color3"></div>
+                        <div class="color4"></div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+
+</div>
+

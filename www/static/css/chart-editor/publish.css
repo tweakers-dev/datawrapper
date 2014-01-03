@@ -21,3 +21,8 @@ p.lead {
 .publishing .progress {
     height: 10px;
 }
+
+#iframe-code {
+    font-size: 13px;
+    padding: 5px;
+}

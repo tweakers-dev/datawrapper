@@ -150,7 +150,7 @@ dw.chart = function(attributes) {
                 .parent()
                 .addClass('vis-'+visualization.id)
                 .addClass('theme-'+theme.id);
-            visualization.render($cont);
+            visualization.render($cont, dataset, visualization.axes(true), theme, chart);
         },
 
         attributes: function(attrs) {

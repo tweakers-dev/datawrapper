@@ -25,11 +25,13 @@ $app->get('/chart/:id/publish', function ($id) use ($app) {
             'chartUrlLocal' => '/chart/' . $chart->getID() . '/preview',
             'themes' => DatawrapperTheme::all(),
             'exportStaticImage' => !empty($cfg['phantomjs']),
-            'chartActions' => DatawrapperHooks::execute(DatawrapperHooks::GET_CHART_ACTIONS, $chart),
             'estExportTime' => ceil(JobQuery::create()->estimatedTime('export') / 60)
         );
-        add_header_vars($page, 'chart', 'chart-editor/publish.css');
-        add_editor_nav($page, 4);
+        add_header_vars($page, 'chart', array(
+            'chart-editor/base.css',
+            'chart-editor/publish.css'
+        ));
+        add_editor_nav($page, 5, $chart);
 
         if ($user->isAbleToPublish()
             && ($chart->getLastEditStep() == 3 || $app->request()->get('republish') == 1)) {

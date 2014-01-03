@@ -1,0 +1,323 @@
+
+/** modified span widths in visualize step **/
+
+html.chart .span1.sidebar-left {
+    width: 80px;
+}
+
+html.chart .span7 {
+    width: 660px;
+}
+
+/** thumbnail selector for visualization and theme **/
+
+.thumb-selector {
+    position: relative;
+    height: 100px;
+}
+
+.thumb-selector .thumb {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #fff;
+    cursor: pointer;
+    position: relative;
+}
+
+#vis-options .control-label {
+    width: 35%;
+}
+
+#vis-options .controls {
+    margin-left: 40%;
+}
+
+.thumb-selector > .thumb {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background: #fff;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border linear .2s,box-shadow linear .2s;
+    -moz-transition: border linear .2s,box-shadow linear .2s;
+    -o-transition: border linear .2s,box-shadow linear .2s;
+    transition: border linear .2s,box-shadow linear .2s;
+}
+
+.thumb-selector.focus > .thumb,
+.thumb-selector .thumb-menu {
+    border-radius: 2px;
+    border: 1px solid rgba(82,168,236,0.6);
+    outline: 0;
+    outline: thin dotted \9;
+    /* IE6-9 */
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+       -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+.thumb-selector .thumb > * {
+    pointer-events: none;
+}
+
+.thumb-selector > .thumb:hover {
+    background: #feff;
+}
+
+.thumb-selector > .thumb .title {
+    display: none;
+}
+
+.thumb-selector .thumb svg {
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 70px;
+    height: 70px;
+}
+
+.thumb-selector .thumb-menu {
+    display: none;
+    z-index: 100;
+    position: absolute;
+    width: 645px;
+    top: 0px;
+    left: 80px;
+    background: #fff;
+    padding: 10px 0px 0px 10px;
+}
+
+.thumb-selector .thumb-menu:before {
+    content: " ";
+    position: absolute;
+    background: #fff;
+    width: 10px;
+    height: 79px;
+    top: 0px;
+    left: -9px;
+    z-index: 200;
+    border-top: 1px solid #eee;
+}
+
+.thumb-selector.focus .thumb-menu {
+    display: block;
+}
+
+.thumb-selector .thumb-menu .thumb {
+    display: inline-block;
+    margin: 0 5px 10px 0;
+    width: 120px;
+    height: 120px;
+    border: none;
+    background: #fff;
+}
+
+.thumb-selector .thumb-menu .thumb svg {
+    width: 80px;
+    height: 80px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.thumb-selector .thumb-menu .thumb:hover svg { opacity: 1; }
+
+.thumb .title {
+    position: absolute;
+    bottom: 3px;
+    left: 5px;
+    right: 5px;
+    text-transform: uppercase;
+    font-size: 11px;
+    line-height: 26px;
+    text-align: center;
+    height: 26px;
+    color: #555;
+}
+
+.thumb-selector.theme .thumb .vis-icon {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    width: 80px;
+    height: 80px;
+}
+
+.thumb-selector.theme > .thumb {
+
+}
+
+.thumb-selector.theme > .thumb .vis-icon {
+    left: 5px;
+    top: 5px;
+    width: 69px;
+    height: 69px;
+}
+
+.thumb-selector.theme .thumb .vis-icon svg {
+    margin: 0;
+}
+
+.thumb-selector.theme > .thumb .vis-icon svg {
+    margin: 0;
+}
+
+.thumb-selector .thumb .title span {
+    display: inline-block;
+    vertical-align:middle;
+    line-height: 13px;
+    color: #08c;
+}
+
+.thumb-selector .thumb-menu .thumb:hover .title span {
+    text-decoration: underline;
+    color: #005580;
+}
+
+.thumb-selector .thumb-menu .thumb.active:hover .title span {
+    text-decoration: none;
+    color: #000;
+}
+
+.thumb svg path,
+.thumb svg rect,
+.thumb svg circle { fill: #ccc; }
+.thumb svg line { stroke: #ccc; }
+
+.thumb:hover svg path,
+.thumb:hover svg rect,
+.thumb:hover svg circle { fill: #08c; }
+.thumb:hover svg line { stroke: #08c; }
+
+.thumb.active svg path,
+.thumb.active svg rect,
+.thumb.active svg circle { fill: #000; }
+.thumb.active svg line { stroke: #000; }
+
+.thumb-selector > .thumb.active svg path,
+.thumb-selector > .thumb.active svg rect,
+.thumb-selector > .thumb.active svg circle { fill: #000; }
+.thumb-selector > .thumb.active svg line { stroke: #000; }
+
+
+.thumb.active .title span { font-weight: bold; color: #000; }
+
+.form-actions {
+    clear: both;
+    padding: 20px 0 0;
+}
+
+.thumb-selector.theme .thumb .vis-colors {
+    position: absolute;
+    left: 25px;
+    bottom: 30px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    width: 70px;
+    text-align: center;
+}
+
+.thumb-selector.theme > .thumb .vis-colors {
+    left: 5px;
+    bottom: 0px;
+}
+
+.thumb-selector.theme .thumb .vis-colors > div {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+}
+
+
+#vis-options fieldset legend {
+    margin-bottom: 10px;
+}
+
+#vis-options .vis-option-group {
+    margin-bottom: 9px;
+    position: relative;
+}
+
+#vis-options .vis-option-group .vis-option-help {
+    position: absolute;
+    top: -3px;
+    right: 0px;
+    cursor: default;
+    padding-left: 15px;
+    z-index: 100;
+}
+
+#vis-options .vis-option-group.vis-option-type-radio-left .vis-option-help {
+    top: 32px;
+}
+
+#vis-options .vis-option-group.vis-option-type-separator .vis-option-help {
+    top: 32px;
+}
+
+#vis-options .vis-option-group.vis-option-type-select-axis-column .vis-option-help {
+    top: 3px;
+}
+
+#vis-options .vis-option-group .vis-option-help:hover {
+    text-decoration: none;
+}
+
+#vis-options .vis-option-group .vis-option-help span {
+    display: block;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 11px;
+    background: #d6d6d6;
+    color: #fff;
+    font-weight: bold;
+}
+
+.tooltip {
+    opacity: 1!important;
+}
+
+.tooltip .tooltip-inner {
+    background: #fff;
+    color: #000;
+    box-shadow: 0 0 14px rgba(0,0,0,.1);
+    font-size: 13px;
+    border: 1px solid #ddd;
+    line-height: 18px;
+    text-align: left;
+}
+
+#vis-options legend + .control-group {
+    margin-top: 0;
+}
+
+
+#vis-options .vis-option-type-select-axis-column .control-label {
+    width: 30%;
+}
+#vis-options .vis-option-type-select-axis-column .controls {
+    margin-left: 35%;
+}
+
+.highlighted-series li {
+    margin-bottom: 3px;
+    margin-right: 10px;
+    float: left;
+    display: inline;
+}
+
+.highlighted-series .badge {
+    max-width: 100%;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+
+.highlighted-series .badge .icon-remove {
+    position: relative;
+    left: -4px;
+    top: 1px;
+}

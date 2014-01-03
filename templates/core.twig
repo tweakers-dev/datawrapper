@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="{{ html_class }}">
   <head>
     <meta charset="utf-8">
     <title>Datawrapper</title>
@@ -47,9 +47,9 @@
     <script type="text/javascript" src="/static/js/dw-2.0.js"></script>
     <script type="text/javascript" src="/static/js/dw-backend.js"></script>
 
-    {% if page_css %}
-    <link href="/static/css/{{ page_css }}" rel="stylesheet">
-    {% endif %}
+    {% for css in page_css %}
+    <link href="/static/css/{{ css }}" rel="stylesheet">
+    {% endfor %}
 
     {% for js in plugin_js %}
     <script type="text/javascript" src="/static/plugins/{{ js }}"></script>

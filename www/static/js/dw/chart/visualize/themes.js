@@ -21,9 +21,9 @@ define(function() {
      */
     function load() {
         var dfd = $.Deferred(),
-            themeid = $('#select-theme').val(),
+            themeid = chart.get('theme'),
             theme = themesById[themeid],
-            needed = [themeid];
+            needed = _.keys(themesById);
 
         while (theme['extends']) {
             needed.unshift(theme['extends']);
@@ -42,6 +42,7 @@ define(function() {
                 dw.backend.fire('theme-loaded');
                 dfd.resolve();
                 showThemeColors();
+                initPreviews();
             }
         }
         loadNext();
@@ -58,11 +59,29 @@ define(function() {
 
     }
 
+    function initPreviews() {
+        _.each(themes, function(theme) {
+            var t = $('.thumb.theme-'+theme.id),
+                th = dw.theme(theme.id);
+            $('.vis-icon, .vis-colors', t).css({
+                background: th.colors.background
+               // border: '1px solid #ccc'
+            });
+            $('.vis-icon path, .vis-icon rect, .vis-icon circle', t).css('fill', th.colors.palette[0]);
+            $('.vis-icon line', t).css('stroke', th.colors.palette[0]);
+            $('.vis-colors .color1', t).css('background', th.colors.palette[0]);
+            $('.vis-colors .color2', t).css('background', th.colors.palette[1]);
+            $('.vis-colors .color3', t).css('background', th.colors.palette[2]);
+            $('.vis-colors .color4', t).css('background', th.colors.palette[3]);
+        });
+    }
+
     return {
         init: init,
         load: load,
         all: function() { return themes; },
-        updateUI: showThemeColors
+        updateUI: showThemeColors,
+        initPreviews: initPreviews
     };
 
 });

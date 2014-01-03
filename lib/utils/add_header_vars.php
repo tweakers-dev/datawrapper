@@ -51,7 +51,7 @@ function add_header_vars(&$page, $active = null, $page_css = null) {
         );
         foreach ($user->getRecentCharts(9) as $chart) {
             $mycharts['dropdown'][] = array(
-                'url' => '/chart/'.$chart->getId().'/visualize#tell-the-story',
+                'url' => '/chart/'.$chart->getId().'/visualize#refine',
                 'title' => '<img width="30" src="'.($chart->hasPreview() ? $chart->thumbUrl(true) : '').'" class="icon" /> '
                     . '<span>' . strip_tags($chart->getTitle()) . '</span>'
             );
@@ -153,8 +153,8 @@ function add_header_vars(&$page, $active = null, $page_css = null) {
     $page['DW_CHART_CACHE_DOMAIN'] = $config['chart_domain'];
     $page['SUPPORT_EMAIL'] = $config['email']['support'];
     $page['config'] = $config;
-    $page['page_css'] = $page_css;
-    $page['invert_navbar'] = isset($config['invert_header']) && $config['invert_header'] || substr($config['domain'], -4) == '.pro';
+    $page['html_class'] = $active;
+    $page['page_css'] = is_array($page_css) ? $page_css : array($page_css);
     $page['noSignup'] = $config['prevent_guest_access'];
     $page['footer'] = DatawrapperHooks::execute(DatawrapperHooks::GET_FOOTER);
 
