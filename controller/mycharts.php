@@ -85,7 +85,7 @@ function user_charts($app, $user, $key, $val) {
         $page['all_users'] = UserQuery::create()->filterByDeleted(false)->orderByEmail()->find();
     }
 
-    add_header_vars($page, 'mycharts');
+    add_header_vars($page, 'mycharts', array('mycharts.css'));
     add_pagination_vars($page, $total, $curPage, $perPage, empty($q) ? '' : '&q='.$q);
     $app->render('mycharts.twig', $page);
 }
