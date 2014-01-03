@@ -17,7 +17,6 @@ define(function() {
             resizeIFrame();
         });
 
-        $('a.duplicate').click(triggerDuplicate);
         resizeIFrame();
 
         // send ajax request for re-sending activation email
@@ -64,23 +63,6 @@ define(function() {
             }
         }
 
-    }
-
-    function triggerDuplicate(e) {
-        e.preventDefault();
-        var id = chart.get('id');
-        $.ajax({
-            url: '/api/charts/'+id+'/copy',
-            type: 'POST',
-            success: function(data) {
-                if (data.status == "ok") {
-                    // redirect to copied chart
-                    location.href = '/chart/'+data.data.id+'/visualize';
-                } else {
-                    console.warn(data);
-                }
-            }
-        });
     }
 
     function resizeIFrame() {
