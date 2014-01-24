@@ -62,12 +62,6 @@ dw.backend.ready(function() {
             {% endif %}
             {% endfor %}
 
-            <p>
-                <a class="duplicate" role="button">
-                    <i class="icon-plus"></i>&nbsp;&nbsp;{% trans "Duplicate this chart" %}
-                </a>
-            </p>
-
             {{ hook('publish_after_chart_actions', chart, user) }}
 
             {% elseif user.role == 'guest' %}
