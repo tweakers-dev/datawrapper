@@ -70,10 +70,10 @@
                 </a>
 
                 <a class="brand" href="/">
-                    {% if config.custom_logo %}<!--[if IE ]>
-                        <img src="/static/custom/{{ config.custom_logo | replace({'.svg':'.png'})}}">
+                    {% if has_hook('custom_logo') %}<!--[if IE ]>
+                        <img src="{{ hook('custom_logo') | replace({'.svg':'.png'})}}">
                         <![endif]-->
-                        <img class="hide-from-ie" src="/static/custom/{{ config.custom_logo }}" />
+                        <img class="hide-from-ie" src="{{ hook('custom_logo') }}" />
                     {% endif %}
                     {% if config.custom_title %}{{ config.custom_title }}{% else %}Datawrapper{% endif %}<span class="beta">{{ config.custom_title_tag }}</span>
                 </a>
