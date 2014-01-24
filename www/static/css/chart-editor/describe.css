@@ -96,45 +96,17 @@
     top: 3px;
 }
 
-.handsontable thead th:hover {
-    background-image: -webkit-linear-gradient(top, hsla(0,0%,55%,.1), hsla(210,0%,85%,1));
-    background-image:    -moz-linear-gradient(top, hsla(0,0%,55%,.1), hsla(210,0%,85%,1));
-    background-image:     -ms-linear-gradient(top, hsla(0,0%,55%,.1), hsla(210,0%,85%,1));
-    background-image:      -o-linear-gradient(top, hsla(0,0%,55%,.1), hsla(210,0%,85%,1));
-    background-image:         linear-gradient(top, hsla(0,0%,55%,.1), hsla(210,0%,85%,1));
-}
-.handsontable thead th:first-child:active {
-    background-image: -webkit-linear-gradient(top, hsla(210,0%,85%,1), hsla(0,0%,55%,.1));
-    background-image:    -moz-linear-gradient(top, hsla(210,0%,85%,1), hsla(0,0%,55%,.1));
-    background-image:     -ms-linear-gradient(top, hsla(210,0%,85%,1), hsla(0,0%,55%,.1));
-    background-image:      -o-linear-gradient(top, hsla(210,0%,85%,1), hsla(0,0%,55%,.1));
-    background-image:         linear-gradient(top, hsla(210,0%,85%,1), hsla(0,0%,55%,.1));
-}
 
-
-.handsontable tbody th {
-    
+.handsontable thead th, .handsontable tbody th {
+    background: #ddd;
+    border-radius: 0!important;
 }
 
 .handsontable thead th {
-    background: #fff;
-    background-image: -webkit-linear-gradient(top, hsla(0,0%,60%,.1), hsla(210,0%,90%,1));
-    background-image:    -moz-linear-gradient(top, hsla(0,0%,60%,.1), hsla(210,0%,90%,1));
-    background-image:     -ms-linear-gradient(top, hsla(0,0%,60%,.1), hsla(210,0%,90%,1));
-    background-image:      -o-linear-gradient(top, hsla(0,0%,60%,.1), hsla(210,0%,90%,1));
-    background-image:         linear-gradient(top, hsla(0,0%,60%,.1), hsla(210,0%,90%,1));
-    box-shadow: inset 0px 2px 1px hsla(0,0%,100%,1);
     border-right: 1px solid hsl(210,0%,70%);
 }
 
 .handsontable thead th.selected {
-    background: #fff;
-    background-image: -webkit-linear-gradient(top, hsla(210,30%,97%,.5), hsla(210,30%,80%,1));
-    background-image:    -moz-linear-gradient(top, hsla(210,30%,97%,.5), hsla(210,30%,80%,1));
-    background-image:     -ms-linear-gradient(top, hsla(210,30%,97%,.5), hsla(210,30%,80%,1));
-    background-image:      -o-linear-gradient(top, hsla(210,30%,97%,.5), hsla(210,30%,80%,1));
-    background-image:         linear-gradient(top, hsla(210,30%,97%,.5), hsla(210,30%,80%,1));
-    box-shadow: inset 0px 1px 2px hsla(0,0%,100%,1);
 }
 
 .handsontable tr:first-child td {
@@ -207,7 +179,6 @@
 }
 #data-preview.table tr th span {
     padding: 3px 6px;
-    border-radius: 4px;
 }
 #data-preview.table.column-series thead tr th span, #data-preview.table.row-series tbody tr th span {
     background-color: #0063A5;
@@ -221,17 +192,17 @@
     background: none;
 }
 #data-preview.table-striped.column-series tbody tr td:nth-child(2n+1) {
-    background-color: #eee;
+    background-color: #f1f1f1;
 }
 #data-preview.table-striped.column-series.vert-header tbody tr td:nth-child(2n) {
-    background: #eee;
+    background: #f1f1f1;
 }
 #data-preview.table-striped.column-series.vert-header tbody tr td:nth-child(2n+1) {
     background: none;
 }
 
 #data-preview.table-striped.row-series tbody tr:nth-child(2n+1) td {
-    background-color: #eee;
+    background-color: #f1f1f1;
 }
 #data-preview.table-striped tbody tr:nth-child(2n+1) td, .table-striped tbody tr:nth-child(2n+1) th {
     background: none;
@@ -244,4 +215,10 @@
 }
 #data-preview.table tbody tr th {
     background-color: #ccc;
+}
+
+.table-bordered,
+html .table-bordered thead tr > th,
+html .table-bordered tbody tr > td {
+    border-radius: 0px!important;
 }
