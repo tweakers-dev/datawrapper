@@ -321,3 +321,8 @@ html.chart .span7 {
     left: -4px;
     top: 1px;
 }
+
+#iframe-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+}

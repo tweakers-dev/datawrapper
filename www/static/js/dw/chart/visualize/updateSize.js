@@ -12,7 +12,7 @@ define(function() {
         $('#iframe-wrapper').animate({
             width: w,
             height: h,
-            'margin-left': (maxW - w) * 0.5
+            //'margin-left': (maxW - w) * 0.5
         }, 400, 'easeOutExpo');
 
         chart.set('metadata.publish.embed-width', w);
