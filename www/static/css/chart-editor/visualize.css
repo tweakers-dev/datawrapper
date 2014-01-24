@@ -2,11 +2,22 @@
 /** modified span widths in visualize step **/
 
 html.chart .span1.sidebar-left {
-    width: 80px;
+    width: 70px;
 }
 
 html.chart .span7 {
-    width: 660px;
+    width: 530px;
+}
+
+
+@media (min-width: 1200px) {
+    html.chart .span1.sidebar-left {
+        width: 80px;
+    }
+
+    html.chart .span7 {
+        width: 660px;
+    }
 }
 
 /** thumbnail selector for visualization and theme **/
