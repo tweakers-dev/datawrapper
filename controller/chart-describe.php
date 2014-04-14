@@ -32,7 +32,7 @@ $app->get('/chart/:id/describe', function ($id) use ($app) {
         $page['columntypes'] = array(
             'text' => 'Text',
             'number' => 'Number',
-            'date' => 'Date',
+            'date' => 'Date'
         );
 
         $page['numberformats'] = array(

@@ -1,4 +1,3 @@
-
 dw.column.types = {};
 
 
@@ -111,6 +110,23 @@ dw.column.types.number = function(sample) {
                 append = (config['number-append'] || '').replace(/ /g, '\u00A0'),
                 prepend = (config['number-prepend'] || '').replace(/ /g, '\u00A0');
 
+			// Use 'minute' format in this case
+			if(div == 60)
+			{
+				return function(val) {
+					if (isNaN(val)) return val;
+
+					var minutes = Math.floor(val);
+					var minutePart = minutes % 60;
+					var hours = Math.floor(minutes / 60);
+
+					if(hours > 0)
+						return hours + 'u' + minutePart + 'm';
+
+					return minutePart + 'm';
+				};
+			}
+
             return function(val, full, round) {
                 if (isNaN(val)) return val;
                 var _fmt = format;
@@ -151,7 +167,6 @@ dw.column.types.number = function(sample) {
     };
     return type;
 };
-
 
 /*
  * type for date values, e.g. 2004 Q1
