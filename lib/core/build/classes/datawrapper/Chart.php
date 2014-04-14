@@ -286,6 +286,7 @@ class Chart extends BaseChart {
      * redirect previous chart versions to the most current one
      */
     public function redirectPreviousVersions() {
+/* Don't create a redirect/refresh, we just want the old version to keep working
         $current_target = $this->getCDNPath();
         $redirect_html = '<html><head><meta http-equiv="REFRESH" content="0; url=/'.$current_target.'"></head></html>';
         $redirect_file = ROOT_PATH . 'charts/static/' . $this->getID() . '/redirect.html';
@@ -295,7 +296,7 @@ class Chart extends BaseChart {
             $files[] = array($redirect_file, $this->getCDNPath($v) . 'index.html', 'text/html');
         }
         DatawrapperHooks::execute(DatawrapperHooks::PUBLISH_FILES, $files);
-    }
+*/    }
 
     public function unpublish() {
         $path = $this->getStaticPath();
@@ -349,7 +350,8 @@ class Chart extends BaseChart {
      * return URL of this chart on Datawrapper
      */
     public function getLocalUrl() {
-        return 'http://' . $GLOBALS['dw_config']['chart_domain'] . '/' . $this->getID() . '/index.html';
+        $version = $this->getPublicVersion();
+        return 'http://' . $GLOBALS['dw_config']['chart_domain'] . '/' . $this->getID() . '/' . ($version > 0 ? $version . '/' : '') . 'index.html';
     }
 
     public function getCDNPath($version = null) {

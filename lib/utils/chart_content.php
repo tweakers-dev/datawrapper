@@ -21,7 +21,8 @@ function get_chart_content($chart, $user, $published = false, $debug = false) {
         $next_theme_id = $theme['extends'];
     }
 
-    $abs = $protocol . '://' . $GLOBALS['dw_config']['domain'];
+	// Completely ignore base url, to allow protocol-agnostic 'same domain'-functionality
+    //$abs = $protocol . '://' . $GLOBALS['dw_config']['chart_domain'];
 
     $debug = $GLOBALS['dw_config']['debug'] == true || $debug;
 
@@ -37,12 +38,12 @@ function get_chart_content($chart, $user, $published = false, $debug = false) {
     } else {
         // use local assets
         $base_js = array(
-            $abs . '/static/vendor/globalize/globalize.min.js',
-            $abs . '/static/vendor/underscore/underscore-1.5.2.min.js',
-            $abs . '/static/vendor/jquery/jquery-1.10.2'.($debug ? '' : '.min').'.js'
+            '/static/vendor/globalize/globalize.min.js',
+            '/static/vendor/underscore/underscore-1.5.2.min.js',
+            '/static/vendor/jquery/jquery-1.10.2'.($debug ? '' : '.min').'.js'
         );
         if (substr($locale, 0, 2) != 'en') {
-            $base_js[] = $abs . '/static/vendor/globalize/cultures/globalize.culture.' . str_replace('_', '-', $locale) . '.js';
+            $base_js[] = '/static/vendor/globalize/cultures/globalize.culture.' . str_replace('_', '-', $locale) . '.js';
         }
     }
 

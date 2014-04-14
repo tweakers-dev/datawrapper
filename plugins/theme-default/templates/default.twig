@@ -1,5 +1,3 @@
-
-
 {% use "theme-core.twig" %}
 
 {{ block('chart_head') }}
@@ -9,9 +7,6 @@
 
 <div id="footer">
     {% if not plain %}
-        <div class="footer-left">
-             {% trans "Created with" %} <a href="{{ DW_DOMAIN }}" target="_blank" class="lgo">Datawrapper</a>
-        </div>
         <div class="footer-right">
             <div class="toggleable-panel">
                 {% if source %}

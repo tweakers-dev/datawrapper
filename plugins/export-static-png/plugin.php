@@ -32,7 +32,7 @@ class DatawrapperPlugin_ExportStaticPng extends DatawrapperPlugin {
             // path to the script
             ROOT_PATH . 'plugins/' . $this->getName() . '/gen_static_fallback.js',
             // url of the chart
-            'http://' . $GLOBALS['dw_config']['domain'] . '/chart/'. $chart->getId() .'/',
+            'http://' . $GLOBALS['dw_config']['chart_domain'] . '/' . $chart->getId() . '/' . $chart->getPublicVersion() . '/',
             // path to the image
             $static_path,
             // output width
