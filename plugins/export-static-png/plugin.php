@@ -21,8 +21,13 @@ class DatawrapperPlugin_ExportStaticPng extends DatawrapperPlugin {
         $job = JobQuery::create()->createJob("export_static_chart", $chart, $user, $params);
     }
 
-    public function exportStaticPng($job) {
+	/**
+	 * @param Job $job
+	 */
+	public function exportStaticPng($job) {
         $chart = $job->getChart();
+		// Make sure it has the latest data
+		$chart->reload();
         $params = $job->getParameter();
         $static_path = ROOT_PATH . 'charts/static/' . $chart->getId() . '/';
         // execute hook provided by phantomjs plugin
