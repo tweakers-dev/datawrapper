@@ -29,8 +29,6 @@ $app->get('/users/:id', function($id) use ($app) {
 
 define('DW_TOKEN_SALT', 'aVyyrmc2UpoZGJ3SthaKyGrFzaV3Z37iuFU4x5oLb_aKmhopz5md62UHn25Gf4ti');
 
-require_once('../../lib/utils/check_email.php');
-
 function email_exists($email) {
     $r = UserQuery::create()->findOneByEmail($email);
     return isset($r);
@@ -86,6 +84,8 @@ $app->post('/users', function() use ($app) {
     $user->setActivateToken(hash_hmac('sha256', $data->email.'/'.time(), DW_TOKEN_SALT));
     $user->save();
     $result = $user->toArray();
+
+    DatawrapperHooks::execute(DatawrapperHooks::USER_SIGNUP, $user);
 
     // send an email
     $name     = $data->email;
@@ -162,8 +162,8 @@ $app->put('/users/:id', function($user_id) use ($app) {
                 }
             }
 
-            if (!empty($payload->email)) {
-                if (check_email($payload->email)) {
+            if (!empty($payload->email) && $payload->email != $user->getEmail()) {
+                if (check_email($payload->email) || $curUser->isAdmin()) {
                     if (!email_exists($payload->email)) {
                         if ($curUser->isAdmin()) {
                             $user->setEmail($payload->email);
@@ -257,14 +257,14 @@ $app->delete('/users/:id', function($user_id) use ($app) {
         $pwd = $payload->pwd;
     }
     if ($curUser->isLoggedIn()) {
-        if ($user_id == 'current' || $curUser->getId() === $user_id) {
+        if ($user_id == 'current' || $curUser->getId() == $user_id) {
             $user = $curUser;
         } else if ($curUser->isAdmin()) {
             $user = UserQuery::create()->findPK($user_id);
             $pwd = $user->getPwd();
         }
         if (!empty($user)) {
-            if ($user->getPwd() == $pwd) {
+            if ($user->getPwd() === secure_password($pwd)) {
 
                 // Delete user
                 if (!$curUser->isAdmin()) {

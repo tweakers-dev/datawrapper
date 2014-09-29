@@ -80,6 +80,9 @@ class DatawrapperHooks {
     // returns the URL of a published chart (args: chart)
     const GET_PUBLISHED_URL = 'get_pulished_url';
 
+    // returns a key specifically for the storage (eg the s3 bucket)
+    const GET_PUBLISH_STORAGE_KEY = 'get_publish_storage_key';
+
     // Send an email (args: to, subject, body, headers)
     const SEND_EMAIL = 'send_email';
 
@@ -140,6 +143,16 @@ class DatawrapperHooks {
     // allow adding links after 'create new chart'
     const HEADER_NAV = 'header_nav_';
 
+    // add a logo to header navbar
+    const CUSTOM_LOGO = 'custom_logo';
+
+    // a new user as bean created
+    const USER_SIGNUP = 'user_signup';
+
+    const USER_ORGANIZATION_ADD = 'user_organization_add';
+    const USER_ORGANIZATION_REMOVE = 'user_organization_remove';
+
+    const VISUALIZE_AFTER_THEME_SELECTOR = 'visualize_after_theme_selector';
 }
 
 

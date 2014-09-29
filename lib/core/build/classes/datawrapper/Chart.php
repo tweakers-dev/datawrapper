@@ -1,7 +1,5 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../utils/array_merge_recursive_simple.php';
-
 /**
  * Skeleton subclass for representing a row from the 'chart' table.
  *
@@ -156,7 +154,7 @@ class Chart extends BaseChart {
         } else if ($this->getGuestSession() == session_id()) {
             return true;
         }
-        return false;
+        return $this->isPublic();
     }
 
     /**

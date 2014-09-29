@@ -12,6 +12,11 @@
     var root = this,
         dw = {};
 
+    // if (typeof 'define' !== 'undefined' && define.amd) {
+    //     // make define backward compatible
+    //     root.dw = dw;
+    //     define(dw);
+    // } else
     if (typeof exports !== 'undefined') {
         if (typeof module !== 'undefined' && module.exports) {
             exports = module.exports = dw;

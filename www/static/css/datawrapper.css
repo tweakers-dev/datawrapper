@@ -13,10 +13,30 @@
     font-style: normal;
 }
 
+.chart-editor {
+    margin-top: 20px;
+}
+
+body .chart-editor .visconfig label,
+body .chart-editor .visconfig select,
+body .chart-editor .visconfig input[type=text],
+body .chart-editor .visconfig textarea {
+    font-size: 12px;
+    line-height: 16px;
+}
+
+body .chart-editor .visconfig input[type="radio"],
+body .chart-editor .visconfig input[type="checkbox"] {
+    margin: 2px 0 0;
+}
+
+body .chart-editor .visconfig label.checkbox { padding-left: 17px; }
+body .chart-editor .visconfig label.checkbox input[type="checkbox"] { margin-left: -17px; }
+
+
 body {
     background: #fff;
     color: #444;
-    margin-top: 60px;
     position: relative;
 }
 
@@ -24,9 +44,32 @@ html .navbar li {
   line-height: 26px;
 }
 
+html .navbar .nav > li.icon > a {
+    padding: 10px 9px 10px;
+    line-height: 26px;
+}
+
+
+html .navbar .nav > li .fa {
+    color: #222;
+    font-size: 14px;
+}
+
+
+html .navbar .nav > li a:hover .fa {
+    color: #08c;
+}
+
 html .navbar .nav > li > a {
-  padding-top: 13px;
-  padding-bottom: 12px;
+  padding-top: 11px;
+  padding-bottom: 10px;
+  font-size: 13px;
+}
+
+html .navbar li.divider-vertical {
+    height: 45px;
+    margin: 0 0px;
+    border-left-color: #dedcdb;
 }
 
 html h2 {
@@ -36,6 +79,10 @@ html h2 {
 html h3 {
     font-size: 18px;
     line-height: 27px;
+}
+
+html .navbar-static-top {
+    margin-bottom: 30px;
 }
 
 #recent-charts {
@@ -49,7 +96,32 @@ html h3 {
     background: #fff;
 }
 
+body .navbar li a .tt { display: none; }
+
+
 @media (max-width: 979px) {
+
+    .nav-collapse, .nav-collapse.collapse {
+        height: 0;
+        overflow: hidden;
+        background: #f7f7f7;
+        z-index: 10000;
+        position: absolute;
+        left: -20px;
+        right: -20px;
+        top: 46px;
+    }
+
+    .nav-collapse li {
+        padding: 0px 5px;
+        border-top: 1px solid #fff;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .nav-collapse li i {
+        margin-right: 10px;
+    }
+
     body .docs h1.title {
         font-size: 36px;
         margin-bottom: 10px;
@@ -67,24 +139,33 @@ html h3 {
         font-size: 21px;
     }
 
+    body .navbar li a .tt { display: inline; }
+
 }
 
-.navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
-    background-image: url(../img/bg-navbar.png);
-    background-color: #eee;
-    min-height: 51px;
+.navbar-static-top .navbar-inner, .navbar-static-bottom .navbar-inner {
+    background: #f5f5f5;
+    min-height: 45px;
+    border-bottom: 1px solid #e5e5e5;
+    box-shadow: none;
+    height: 45px;
+}
+
+html .navbar .nav>.active>a, .navbar .nav>.active>a:hover, .navbar .nav>.active>a:focus {
+    box-shadow: none;
+    -webkit-box-shadow: none;
 }
 
 .navbar.navbar-inverse .navbar-inner {
-  background-color: #1b1b1b;
-  background-image: -moz-linear-gradient(top, #222222, #111111);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#111111));
-  background-image: -webkit-linear-gradient(top, #222222, #111111);
-  background-image: -o-linear-gradient(top, #222222, #111111);
-  background-image: linear-gradient(to bottom, #222222, #111111);
-  background-repeat: repeat-x;
-  border-color: #252525;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
+  background: #000;
+}
+
+.navbar.navbar-inverse .navbar-inner li a i.fa {
+  color: #bbb;
+}
+
+.navbar.navbar-inverse .navbar-inner li a:hover i.fa {
+  color: #08c;
 }
 
 .navbar-inverse .nav li a [class^="icon-"],
@@ -98,24 +179,27 @@ html h3 {
     opacity: 1;
 }
 
-.navbar .brand {
+html .navbar .brand {
     padding-top: 14px;
     padding-bottom: 4px;
     color: #556;
     text-shadow: 1px 1px 0 rgba(255, 255, 255, .55);
     white-space: nowrap;
+    padding-left: 0px;
+    font-size: 18px;
+    margin-left: 0px;
 }
 
-.navbar-inverse .brand {
+html .navbar.navbar-inverse .brand {
     color: #ddd;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, .55);
+    text-shadow: none;
 }
 
 .navbar .brand img {
     float: left;
     margin-right: 7px;
     margin-left: 4px;
-    height: 32px;
+    height: 28px;
     position:relative;
     top:-4px;
 }
@@ -224,7 +308,7 @@ body .navbar-inverse .nav li.dropdown.active > .dropdown-toggle:hover
     font-size: 16px;
     line-height: 50px;
     font-weight: 300;
-    margin-bottom: 2em;
+    margin-bottom: 0;
     white-space: nowrap;
 }
 
@@ -547,7 +631,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .form-actions {
-    background: #F2F2F2 url(../img/bg-well.png);
+    background: #F2F2F2;
     border-radius: 0 0 10px 10px;
 }
 
@@ -747,14 +831,20 @@ dl.dl-horizontal dd {
     opacity: 1!important;
 }
 
-.tooltip .tooltip-inner {
+html .tooltip .tooltip-inner {
     background: #fff;
     color: #000;
     box-shadow: 0 0 14px rgba(0,0,0,.1);
-    font-size: 13px;
-    border: 1px solid #ddd;
-    line-height: 18px;
+    font-size: 11px;
+    border: 1px solid #000;
+    line-height: 14px;
     text-align: left;
+    position: relative;
+}
+
+.navbar-static-top .tooltip .tooltip-inner {
+    background: rgba(0,0,0,.9);
+    color: #fff;
 }
 
 #vis-options legend + .control-group {
@@ -876,7 +966,7 @@ form.well form {
 }
 
 .well {
-    background: url(../img/bg-well.png);
+    background: #f2f2f2;
     box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.05) inset;
 }
 
@@ -912,7 +1002,7 @@ form.well form {
 }
 
 .well .nav-tabs > .active > a, .nav-tabs > .active > a:hover {
-    background: url(../img/bg-well.png);
+    background: #f2f2f2;
     border-left-color: #c0c0c0;
     border-right-color: #c0c0c0;
     border-top-color: #c0c0c0;
@@ -1338,7 +1428,7 @@ form.well form {
     color: #000;
     font-weight: bold;
     box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.05) inset;
-    background: url(../img/bg-well.png);
+    background: #f2f2f2;
 }
 
 label.separator {

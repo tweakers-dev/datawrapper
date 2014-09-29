@@ -1,6 +1,60 @@
 CHANGELOG
 ---------
 
+### 1.7.11
+* fixed symlink creation in plugin installation
+* reloading chart preview if chart locale changes
+* resolving plugin names from class name, not path
+* fixed user deletion api
+
+### 1.7.10
+* load chart specific locale, if different from UI
+* allow hooking into visualize step sidebar
+* removed vendor libs from repo
+* made Datawrapper Composer-ready
+* do not send email activation mails when the email address has not been altered
+* minor improvements for the account settings
+* fixed delete-account button
+* fixed XSS vulnerability
+* replaced ext-mysql with PDO in the session handler
+* do not use the mysql extension in the check_server script
+* cleaned up makefile
+* replaces JSMin with JShrink
+
+### 1.7.9
+* refactored controller code base
+* refactored account templates
+* allowing access to plugin classes
+* bugfixes
+
+### 1.7.8
+* re-structured header navbar
+* added font awesome
+* allow filtering of missing values in bar charts
+* tooltips in header navbar
+
+### 1.7.7
+* switched top nav from fixed to static
+* added vis option textarea
+* flattened navbar appearance
+* added hook for customizing navbar logo
+
+### 1.7.6
+* disabled fullscreen mode in default theme
+* fixed gallery preview
+* allowed disabling of login logging
+* renamed ``cdn_asset_base_url`` config to ``asset_domain``
+
+### 1.7.5
+* user settings: don't complain about existing email if it hasn't been changed
+* let admins reset a users password
+* replacing n-dashes with normal dashes (increasing tolerance for bad copy & paste input)
+* ignoring percentage signs in data input
+
+### 1.7.4
+* added json api for themes
+* forcing lowercase organization ids
+
 ### 1.7.3
 * enabled setting initial sorting of data tables
 * fixed chart display on mobile devices

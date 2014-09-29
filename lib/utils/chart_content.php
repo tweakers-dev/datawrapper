@@ -1,16 +1,16 @@
 <?php
 
-require_once ROOT_PATH . 'vendor/jsmin/jsmin.php';
-
-
 function get_chart_content($chart, $user, $published = false, $debug = false) {
     $theme_css = array();
     $theme_js = array();
-    $protocol = !empty($_SERVER['HTTPS']) ? "https" : "http";
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
 
     $next_theme_id = $chart->getTheme();
 
     $locale = DatawrapperSession::getLanguage();
+    if ($chart->getLanguage() != '') {
+        $locale = $chart->getLanguage();
+    }
 
     while (!empty($next_theme_id)) {
         $theme = DatawrapperTheme::get($next_theme_id);
@@ -26,14 +26,14 @@ function get_chart_content($chart, $user, $published = false, $debug = false) {
 
     $debug = $GLOBALS['dw_config']['debug'] == true || $debug;
 
-    if ($published && !$debug && !empty($GLOBALS['dw_config']['cdn_asset_base_url'])) {
+    if ($published && !$debug && !empty($GLOBALS['dw_config']['asset_domain'])) {
         $base_js = array(
-            $GLOBALS['dw_config']['cdn_asset_base_url'] . 'globalize.min.js',
+            '//' . $GLOBALS['dw_config']['asset_domain'] . '/globalize.min.js',
             '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js',
             '//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js'
         );
         if (substr($locale, 0, 2) != 'en') {
-            $base_js[] = $GLOBALS['dw_config']['cdn_asset_base_url'] . 'cultures/globalize.culture.' . str_replace('_', '-', $locale) . '.js';
+            $base_js[] = '//' . $GLOBALS['dw_config']['asset_domain'] . '/cultures/globalize.culture.' . str_replace('_', '-', $locale) . '.js';
         }
     } else {
         // use local assets
@@ -101,6 +101,7 @@ function get_chart_content($chart, $user, $published = false, $debug = false) {
     $the_vis = DatawrapperVisualization::get($chart->getType());
     $the_vis['locale'] = $vis_locale;
     $the_theme = DatawrapperTheme::get($chart->getTheme());
+    $l10n__domain = $the_theme['__static_path'];
 
     $the_vis_js = get_vis_js($the_vis, array_merge(array_reverse($vis_js), $vis_libs_local));
     $the_theme_js = get_theme_js($the_theme, array_reverse($theme_js));
@@ -152,7 +153,7 @@ function get_chart_content($chart, $user, $published = false, $debug = false) {
         'chart' => $chart,
         'lang' => strtolower(substr($locale, 0, 2)),
         'metricPrefix' => get_metric_prefix($locale),
-        'l10n__domain' => $the_theme['__static_path'],
+        'l10n__domain' => $l10n__domain,
         'origin' => !empty($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '',
         'DW_DOMAIN' => $protocol . '://' . $cfg['domain'] . '/',
         'DW_CHART_DATA' => $protocol . '://' . $cfg['domain'] . '/chart/' . $chart->getID() . '/data.csv',
@@ -188,12 +189,14 @@ function get_vis_js($vis, $visJS) {
     $all = '';
     $org = DatawrapperSession::getUser()->getCurrentOrganization();
     if (!empty($org)) $org = '/'.$org->getID(); else $org = '';
+    $keys = DatawrapperHooks::execute(DatawrapperHooks::GET_PUBLISH_STORAGE_KEY);
+    if (is_array($keys)) $org .= '/' . join($keys, '/');
     foreach ($visJS as $js) {
         if (substr($js, 0, 7) != "http://" && substr($js, 0, 8) != "https://" && substr($js, 0, 2) != '//') {
             $all .= "\n\n\n" . file_get_contents(ROOT_PATH . 'www' . $js);
         }
     }
-    $all = JSMin::minify($all);
+    $all = \JShrink\Minifier::minify($all);
     $all = file_get_contents(ROOT_PATH . 'www/static/js/dw-2.0.min.js') . "\n\n" . $all;
     // generate md5 hash of this file to get filename
     $vis_js_md5 = md5($all.$org);
@@ -210,12 +213,14 @@ function get_theme_js($theme, $themeJS) {
     $all = '';
     $org = DatawrapperSession::getUser()->getCurrentOrganization();
     if (!empty($org)) $org = '/'.$org->getID(); else $org = '';
+    $keys = DatawrapperHooks::execute(DatawrapperHooks::GET_PUBLISH_STORAGE_KEY);
+    if (is_array($keys)) $org .= '/' . join($keys, '/');
     foreach ($themeJS as $js) {
         if (substr($js, 0, 7) != "http://" && substr($js, 0, 8) != "https://" && substr($js, 0, 2) != '//') {
             $all .= "\n\n\n" . file_get_contents(ROOT_PATH . 'www' . $js);
         }
     }
-    $all = JSMin::minify($all);
+    $all = \JShrink\Minifier::minify($all);
     $theme_js_md5 = md5($all.$org);
     $theme_path = 'theme/' . $theme['id'] . '-' . $theme_js_md5 . '.min.js';
     return array($theme_path, $all);
@@ -223,7 +228,7 @@ function get_theme_js($theme, $themeJS) {
 
 function get_chart_js() {
     $js = file_get_contents(ROOT_PATH . 'www/static/js/dw/chart.base.js');
-    $min = JSMin::minify($js);
+    $min = \JShrink\Minifier::minify($js);
     $md5 = md5($min);
     return array('chart-'.$md5.'.min.js', $min);
 }

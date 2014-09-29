@@ -14,24 +14,35 @@
         </li>
     {% else %}
         <li>
-            <a {% if slink.data %}{% for k,v in slink.data %}data-{{ k }}="{{ v }}" {% endfor %}{% endif %}href="{{ slink.url }}">{%if slink.icon %}<i class="icon-{{ slink.icon }}"></i>
+            <a {% if slink.data %}{% for k,v in slink.data %}data-{{ k }}="{{ v }}" {% endfor %}{% endif %}href="{{ slink.url }}">{%if slink.icon %}<i class="{{ slink.icon }}"></i>
              {% endif %}{{ slink.title | raw }}</a>
         </li>
     {% endif %}
 
 {% endblock %}
 
-{% block header_nav_link %}
-    {% if link.dropdown %}
-
-        <li class="{{ link.id }} dropdown{% if link.active %} active{% endif %}">
-            <a id="dw-header-link-{{ link.id }}" href="{{ link.url }}" class="dropdown-toggle" data-toggle="dropdown">
-                {% if link.icon %}
-                <i title="{{ link.title }}" class="icon-{{ link.icon }} icon-whte"></i>
-                {% endif %}
+{% block header_li_a %}
+        <li class="{{ link.id }}{% if link.dropdown %} dropdown{% endif %}{% if link.active %} active{% endif %}{% if link.justicon %} icon{% endif %}{% if link.class %} {{ link.class }}{% endif %}">
+            <a {% if link.tooltip %}title="{{ link.tooltip }}"{% endif %} id="dw-header-link-{{ link.id }}" href="{{ link.url }}" {% if link.dropdown %}class="dropdown-toggle" data-toggle="dropdown" {% elseif link.modal %} data-toggle="modal"{% endif %}>
+                {% if link.icon %}<i class="{{ link.icon }}"></i> {% endif %}
                 {% if not link.icon or not link.justicon %}
                 {{ link.title | raw }}
                 {% endif %}
+                {% if link.tooltip %}
+                <span class="tt">{{ link.tooltip | raw }}</span>
+                {% endif %}
+{% endblock %}
+
+
+{% block header_nav_link %}
+
+    {% if link == 'divider' %}
+
+        <li class="divider-vertical"></li>
+
+    {% elseif link.dropdown %}
+
+        {{ block('header_li_a') }}
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
@@ -43,14 +54,7 @@
 
     {% else %}
 
-        <li class="{{ link.id }}{% if link.active %} active{% endif %}">
-            <a id="dw-header-link-{{ link.id }}" href="{{ link.url }}"{% if link.modal %} data-toggle="modal"{% endif %}>
-                {% if link.icon %}
-                <i title="{{ link.title }}" class="icon-{{ link.icon }} icon-whie"></i>
-                {% endif %}
-                {% if not link.icon or not link.justicon %}
-                {{ link.title }}
-                {% endif %}
+        {{ block('header_li_a') }}
             </a>
         </li>
 
@@ -60,20 +64,18 @@
 
 {% block header %}
 
-    <div class="navbar navbar-fixed-top{% if invert_navbar %} navbar-inverse{% endif %}">
+    <div class="navbar navbar-static-top{% if invert_navbar %} navbar-inverse{% endif %}">
         <div class="navbar-inner">
             <div class="container" style="position:relative">
-                 <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
 
                 <a class="brand" href="/">
-                    {% if config.custom_logo %}<!--[if IE ]>
-                        <img src="/static/custom/{{ config.custom_logo | replace({'.svg':'.png'})}}">
-                        <![endif]-->
-                        <img class="hide-from-ie" src="/static/custom/{{ config.custom_logo }}" />
+                    {% if custom_logo %}
+                        <img src="{{ custom_logo }}" />
                     {% endif %}
                     {% if config.custom_title %}{{ config.custom_title }}{% else %}Datawrapper{% endif %}<span class="beta">{{ config.custom_title_tag }}</span>
                 </a>
@@ -89,6 +91,18 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+    $(function() {
+        $('.navbar li.icon a[title]').mouseenter(function() {
+            $('.navbar-static-top .tooltip').hide();
+        });
+        $('.navbar-static-top li a[title]').tooltip({
+            placement: 'bottom',
+            container: '.navbar-static-top',
+            delay: 0
+        });
+    });
+    </script>
 
 
 {% endblock %}

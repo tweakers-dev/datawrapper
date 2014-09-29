@@ -12,6 +12,11 @@
     var root = this,
         dw = {};
 
+    // if (typeof 'define' !== 'undefined' && define.amd) {
+    //     // make define backward compatible
+    //     root.dw = dw;
+    //     define(dw);
+    // } else
     if (typeof exports !== 'undefined') {
         if (typeof module !== 'undefined' && module.exports) {
             exports = module.exports = dw;
@@ -264,7 +269,7 @@ dw.column = function(name, rows, type) {
          * apply function to each value
          */
         each: function(f) {
-            for (i=0; i<rows.length; i++) {
+            for (var i=0; i<rows.length; i++) {
                 f(column.val(i), i);
             }
         },
@@ -354,7 +359,6 @@ dw.column = function(name, rows, type) {
     };
     return column;
 };
-
 dw.column.types = {};
 
 
@@ -386,15 +390,15 @@ dw.column.types.number = function(sample) {
     var format,
         errors = 0,
         knownFormats = {
-            '-.': /^ *-?[0-9]*(\.[0-9]+)?(e[\+\-][0-9]+) *$/,
-            '-,': /^ *-?[0-9]*(,[0-9]+)? *$/,
-            ',.': /^ *-?[0-9]{1,3}(,[0-9]{3})*(\.[0-9]+)? *$/,
-            '.,': /^ *-?[0-9]{1,3}(\.[0-9]{3})*(,[0-9]+)? *$/,
-            ' .': /^ *-?[0-9]{1,3}( [0-9]{3})*(\.[0-9]+)? *$/,
-            ' ,': /^ *-?[0-9]{1,3}( [0-9]{3})*(,[0-9]+)? *$/,
+            '-.': /^ *[-–—]?[0-9]*(\.[0-9]+)?(e[\+\-][0-9]+)?%? *$/,
+            '-,': /^ *[-–—]?[0-9]*(,[0-9]+)?%? *$/,
+            ',.': /^ *[-–—]?[0-9]{1,3}(,[0-9]{3})*(\.[0-9]+)?%? *$/,
+            '.,': /^ *[-–—]?[0-9]{1,3}(\.[0-9]{3})*(,[0-9]+)?%? *$/,
+            ' .': /^ *[-–—]?[0-9]{1,3}( [0-9]{3})*(\.[0-9]+)?%? *$/,
+            ' ,': /^ *[-–—]?[0-9]{1,3}( [0-9]{3})*(,[0-9]+)?%? *$/,
             // excel sometimes produces a strange white-space:
-            ' .': /^ *-?[0-9]{1,3}( [0-9]{3})*(\.[0-9]+)? *$/,
-            ' ,': /^ *-?[0-9]{1,3}( [0-9]{3})*(,[0-9]+)? *$/
+            ' .': /^ *[-–—]?[0-9]{1,3}( [0-9]{3})*(\.[0-9]+)?%? *$/,
+            ' ,': /^ *[-–—]?[0-9]{1,3}( [0-9]{3})*(,[0-9]+)?%? *$/
         },
         formatLabels = {
             '-.': '1234.56',
@@ -438,7 +442,8 @@ dw.column.types.number = function(sample) {
     var type = {
         parse: function(raw) {
             if (_.isNumber(raw) || _.isUndefined(raw) || _.isNull(raw)) return raw;
-            var number = raw;
+            // replace percent sign, n-dash & m-dash
+            var number = raw.replace("%", "").replace('–', '-').replace('—', '-');
             // normalize number
             if (format[0] != '-') {
                 // remove kilo seperator
@@ -448,7 +453,6 @@ dw.column.types.number = function(sample) {
                 // replace decimal char w/ point
                 number = number.replace(format[1], '.');
             }
-
             if (isNaN(number) || number === "") {
                 if (!naStrings[number.toLowerCase()] && number !== "") errors++;
                 return raw;
@@ -842,8 +846,7 @@ _.extend(DelimitedParser.prototype, {
             opts.delimiter = me.guessDelimiter(data, opts.skipRows);
             me.__delimiterPatterns = getDelimiterPatterns(opts.delimiter, opts.quoteChar);
         }
-        var columns = [],
-            closure = opts.delimiter != '|' ? '|' : '#',
+        var closure = opts.delimiter != '|' ? '|' : '#',
             arrData;
 
         data = closure + data.replace(/\s+$/g, '') + closure;
@@ -1090,7 +1093,6 @@ dw.utils = {
      * input format of the dates in the dataset
      */
     longDateFormat: function(column) {
-        var me = this;
         return function(d) {
             if (column.type() == 'date') {
                 switch (column.type(true).precision()) {
@@ -1184,7 +1186,7 @@ dw.utils = {
      *
      */
     significantDimension: function(values) {
-        var result = [], dimension = 0, nonEqual = true,
+        var result = [], dimension = 0,
             uniqValues = _.uniq(values),
             check, diff;
 
@@ -1274,8 +1276,7 @@ dw.utils = {
  * @param format  a function for formatting the values
  */
 dw.utils.filter = function (column, active, type, format) {
-    var callbacks = [],
-        lastActiveRow;
+    var callbacks = [];
 
     type = type || 'auto';
     format = format || _.identity;
@@ -1695,8 +1696,8 @@ dw.chart = function(attributes) {
                 var mtrSuf = dw.utils.metricSuffix(chart.locale()),
                     values = column.values(),
                     dim = dw.utils.significantDimension(values),
-                    div = dim < -2 ? Math.round((dim*-1) / 3) * 3 :
-                            dim > 2 ? dim*-1 : 0;
+                    div = dim < -2 ? (Math.round((dim*-1) / 3) * 3) :
+                            (dim > 2 ? dim*-1 : 0),
                     ndim = dw.utils.significantDimension(_.map(values, function(v) {
                         return v / Math.pow(10, div);
                     }));
@@ -1746,6 +1747,7 @@ dw.chart = function(attributes) {
 
     return chart;
 };
+
 
 dw.visualization = (function(){
 
@@ -2061,7 +2063,7 @@ dw.theme = (function(){
      * cannot be turned off anymore.
      */
     function extend() {
-        var options, name, src, copy, copyIsArray, clone,
+        var options, name, src, copy, clone,
             target = arguments[0] || {},
             i = 1,
             length = arguments.length;

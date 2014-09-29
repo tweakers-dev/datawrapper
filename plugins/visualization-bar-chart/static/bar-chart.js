@@ -11,8 +11,9 @@
             var me = this, row = 0,
                 dataset = me.dataset,
                 sortBars = me.get('sort-values', false),
-                reverse = me.get('reverse-order'),
-                useNegativeColor = me.get('negative-color', false);
+                reverse = me.get('reverse-order');
+                // useNegativeColor = me.get('negative-color', false),
+                // filterMissing = me.get('filter-missing-values', true);
 
             me.axesDef = me.axes();
             if (!me.axesDef) return;  // stop rendering here
@@ -39,15 +40,14 @@
             var c = me.initCanvas({
                 h: Math.max(
                     dw.utils.getMaxChartHeight(el)+5,
-                    18 * 1.35 * me.getBarColumn().length + 5
+                    18 * 1.35 * me.getMaxNumberOfBars() + 5
                 )
             });
 
             var
-                chart_width = c.w - c.lpad - c.rpad,
-                series_gap = 0.05, // pull from theme
-                row_gap = 0.01,
-                formatValue = me.chart().columnFormatter(me.getBarColumn()),
+                // chart_width = c.w - c.lpad - c.rpad,
+                // series_gap = 0.05, // pull from theme
+                // row_gap = 0.01,
                 barvalues = me.getBarValues(sortBars, reverse);
 
             me.init();
@@ -57,10 +57,45 @@
 
             c.lastBarY = 0;
 
-            function render(barv) {
+            var barGroups = _.groupBy(barvalues, function(bar, i) {
+                bar.__i = i;
+                return Math.floor(i/10);
+            });
+
+            var render = me.renderBar(row);
+
+            _.each(barGroups, function(bars) {
+                // defer rendering if we got plenty of bars
+                // to prevent UI blocking
+                _.defer(function() {
+                    _.each(bars, function(bar, i) {
+                        render(bar, bar.__i);
+                    });
+                    complete();
+                });
+            });
+
+            // complete is called as soon all bars are rendered
+            function complete() {
+                if (me.__domain[0] < 0) {
+                    var x = c.lpad + c.zero ;
+                    // add y-axis
+                    me.__yaxis = me.path('M' + [x, c.tpad] + 'V' + c.lastBarY, 'axis')
+                        .attr(me.theme().yAxis);
+                }
+                // enable mouse events
+                el.mousemove(_.bind(me.onMouseMove, me));
+                me.renderingComplete();
+            }
+        },
+
+        renderBar: function(row) {
+            var me = this, c = me.__canvas,
+                formatValue = me.chart().columnFormatter(me.getBarColumn());
+            return function(barv, s) {
                 var d = me.barDimensions(barv, s, row),
                     lpos = me.labelPosition(barv, s, row),
-                    fill = me.getKeyColor(barv.name, barv.value, useNegativeColor),
+                    fill = me.getKeyColor(barv.name, barv.value, me.get('negative-color', false)),
                     stroke = chroma.color(fill).darken(14).hex();
 
                 // draw bar
@@ -90,45 +125,20 @@
                 }
 
                 c.lastBarY = Math.max(c.lastBarY, d.y + d.height);
-                if (s == barvalues.length-1) complete();
-                s++;
-            }
-
-            var barGroups = _.groupBy(barvalues, function(bar, i) {
-                return Math.floor(i/10);
-            });
-            var s = 0;
-            _.each(barGroups, function(bars) {
-                // defer rendering if we got plenty of bars
-                // to prevent UI blocking
-                _.defer(function() {
-                    _.each(bars, render);
-                });
-            });
-
-            // complete is called as soon all bars are rendered
-            function complete() {
-                if (me.__domain[0] < 0) {
-                    var x = c.lpad + c.zero ;
-                    // add y-axis
-                    me.__yaxis = me.path('M' + [x, c.tpad] + 'V' + c.lastBarY, 'axis')
-                        .attr(me.theme().yAxis);
-                }
-                // enable mouse events
-                el.mousemove(_.bind(me.onMouseMove, me));
-                me.renderingComplete();
-            }
+            };
         },
 
-        getBarValues: function(sortBars, reverse) {
+        getBarValues: function(sortBars, reverse, forceAll) {
             var me = this,
                 values = [],
                 filter = me.__lastRow,
                 labels = me.axes(true).labels,
                 column = me.getBarColumn(filter),
+                filterMissing = !forceAll && me.get('filter-missing-values', true),
                 fmt = me.chart().columnFormatter(labels);
 
             column.each(function(val, i) {
+                if (filterMissing && typeof val != 'number') return;
                 values.push({
                     name: fmt(labels.val(i)),
                     value: val,
@@ -147,6 +157,24 @@
             return me.axes(true).bars[filter];
         },
 
+        getMaxNumberOfBars: function() {
+            var me = this,
+                filterMissing = me.get('filter-missing-values', true),
+                bars = me.axes(true).bars,
+                maxNum = 0;
+            if (!filterMissing) maxNum = bars[0].length;
+            else {
+                _.each(bars, function(bar) {
+                    var notNaN = 0;
+                    bar.each(function(val) {
+                        if (typeof val == 'number') notNaN++;
+                    });
+                    maxNum = Math.max(maxNum, notNaN);
+                });
+            }
+            return maxNum;
+        },
+
         update: function(row) {
             var me = this,
                 formatValue = me.chart().columnFormatter(me.getBarColumn());
@@ -154,8 +182,24 @@
             // update scales
             me.initDimensions();
 
+            // tag for hiding
+            _.each(me.__elements, function(elements) {
+                elements.__hide = true;
+            });
+
+            var render = me.renderBar(row);
+
             // update bar heights and labels
             _.each(me.getBarValues(me.get('sort-values', false)), function(bar, s) {
+
+                // don't hide this element because we have data for it
+                if (me.__elements[bar.name]) me.__elements[bar.name].__hide = false;
+
+                // register new element if it does not exists yet
+                if (!me.__elements[bar.name]) {
+                    render(bar, s);
+                }
+
                 _.each(me.__elements[bar.name], function(rect) {
                     var dim = me.barDimensions(bar, s, row);
                     dim.fill = me.getKeyColor(bar.name, bar.value, me.get('negative-color', false));
@@ -195,6 +239,17 @@
             } else if (me.__yaxis) {
                 me.__yaxis.animate({ opacity: 0 }, me.theme().duration * 0.5, me.theme().easing);
             }
+
+            // hide elements and labels that are marked for hiding
+            _.each(me.__elements, function(elements, k) {
+                if (elements.__hide) {
+                    _.each(elements, function(el) { if (el && el.hide) el.hide(); });
+                    _.each(me.__labels[k], function(el) { if (el && el.hide) el.hide(); });
+                } else {
+                   _.each(elements, function(el) { if (el && el.show) el.show(); });
+                    _.each(me.__labels[k], function(el) { if (el && el.show) el.show(); });
+                }
+            });
         },
 
         initDimensions: function() {
@@ -202,7 +257,7 @@
             var me = this, c = me.__canvas,
                 w = c.w - c.lpad - c.rpad - 30,
                 column = me.getBarColumn(),
-                bars = me.getBarValues(),
+                bars = me.getBarValues(false, false, true),
                 formatValue = me.chart().columnFormatter(column),
                 domain = me.get('absolute-scale', false) ?
                     dw.utils.minMax(_.map(me.axesDef.bars, function(c) { return me.dataset.column(c); })) :
@@ -262,7 +317,7 @@
         },
 
         barDimensions: function(bar, s, r) {
-            var me = this, w, h, x, y, i, cw, n = me.getBarValues().length,
+            var me = this, w, h, x, y, i, cw, n = me.getMaxNumberOfBars(),
                 sc = me.__scales, c = me.__canvas, bw, pad = 0.35, vspace = 0.1,
                 val = bar.value;
 
@@ -270,7 +325,7 @@
             //
             cw = c.h - c.bpad - c.tpad;
             //
-            bw = Math.max(18, Math.min(50, cw / (n + (n-1) * pad)));
+            bw = Math.max(18, Math.min(23, cw / (n + (n-1) * pad)));
             w = sc.y(val) - sc.y(0);
             h = bw;
             if (w > 0) {
