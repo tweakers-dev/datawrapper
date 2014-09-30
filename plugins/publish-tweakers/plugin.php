@@ -24,7 +24,7 @@ class DatawrapperPlugin_PublishTweakers extends DatawrapperPlugin {
      * )
      */
     public function publish($files) {
-        $dir = $GLOBALS['dw_config']['publication_path'];
+        $dir = $GLOBALS['dw_config']['plugins']['publish_tweakers']['publication_path'];
 
         foreach ($files as $file) {
             if ($this->checkPath($dir . $file[1])) {
