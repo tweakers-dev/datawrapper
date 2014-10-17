@@ -11,13 +11,11 @@
             <div class="toggleable-panel">
                 {% if source %}
 
-                    <span data-src="{% trans "Source: " %}" class="source-block">{% trans "Source: " %}
+                    <span data-src="Bron:" class="source-block">Bron:
                     {% if sourceURL %}<a target="_blank" class="source" href="{{ sourceURL }}">{% endif %}{{ source }}{% if sourceURL %}</a>{% endif %}</span>
 
                 {% endif %}
-                <a href="data">{% trans "Get the data" %}</a>
             </div>
-            <a class="toggle-panel">{% trans "About" %}</a>
         </div>
         <div class="toggleable-panel-overlay"></div>
     {% endif %}
