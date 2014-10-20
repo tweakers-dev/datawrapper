@@ -247,8 +247,8 @@ class Chart extends BaseChart {
                 'highlighted-values' => array()
             ),
             'describe' => array(
-                'source-name' => '',
-                'source-url' => '',
+                'source-name' => 'Tweakers',
+                'source-url' => 'http://tweakers.net/benchdb/',
                 'number-format' => '-',
                 'number-divisor' => 0,
                 'number-append' => '',
