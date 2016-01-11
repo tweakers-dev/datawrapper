@@ -684,6 +684,12 @@ abstract class BaseChart extends BaseObject implements Persistent
             $v = (string) $v;
         }
 
+        $decoded = json_decode($v, true);
+        if (filter_var($decoded['describe']['source-url'], FILTER_VALIDATE_URL) === false) {
+            unset($decoded['describe']['source-url']);
+            $v = json_encode($decoded);
+        }
+
         if ($this->metadata !== $v) {
             $this->metadata = $v;
             $this->modifiedColumns[] = ChartPeer::METADATA;
