@@ -40,6 +40,12 @@ function email_exists($email) {
 $app->post('/users', function() use ($app) {
     $data = json_decode($app->request()->getBody());
     $currUser = DatawrapperSession::getUser();
+
+    if ( ! $currUser->isAdmin()) {
+        error(403, 'Permission denied');
+        return;
+    }
+
     $invitation = empty($data->invitation)? false : (bool) $data->invitation;
     // check values
     $checks = array(

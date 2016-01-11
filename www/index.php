@@ -82,6 +82,6 @@ $app->hook('slim.before.router', function () use ($app, $dw_config) {
  * This method should be called last. This is responsible for executing
  * the Slim application using the settings and routes defined above.
  */
-
+$app->config('debug', $dw_config['debug']);
 $app->run();
 

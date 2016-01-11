@@ -58,7 +58,7 @@ function error_not_allowed_to_publish() {
 function error_chart_not_found($id) {
     error_page('chart',
         __('Whoops! We couldn\'t find that chart..'),
-        __('Sorry, but it seems that there is no chart with the id <b>'.$id.'</b> (anymore)'),
+        __('Sorry, but it seems that there is no chart with the id <b>' . htmlspecialchars($id) . '</b> (anymore)'),
         false, 404
     );
 }
